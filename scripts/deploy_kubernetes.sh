@@ -2,14 +2,9 @@
 
 set -euo pipefail
 
-echo $ENV
-echo $TERRAFORM_OUTPUTS
-
 export KUBECONFIG="./kubernetes/kubeconfig"
-# outputs=$(cat ./terraform_outputs.json)
 env=$(echo $TERRAFORM_OUTPUTS | jq '.env.value' | sed 's/"//g')
 assume_role=$(echo $TERRAFORM_OUTPUTS | jq '.assume_role.value' | sed 's/"//g')
-# echo $assume_role
 TEMP_ROLE=`aws sts assume-role --role-arn $assume_role --role-session-name ci-authenticate-kubernetes-782`
 
 access_key=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
