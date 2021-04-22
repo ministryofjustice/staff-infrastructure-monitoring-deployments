@@ -3,9 +3,7 @@
 set -euo pipefail
 
 echo $ENV
-echo $env
 echo $TERRAFORM_OUTPUTS
-echo $terraform_outputs
 
 export KUBECONFIG="./kubernetes/kubeconfig"
 # outputs=$(cat ./terraform_outputs.json)
