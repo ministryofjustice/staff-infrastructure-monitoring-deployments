@@ -1,0 +1,194 @@
+
+{
+  "assume_role": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:iam::068084030754:role/pttp-global-monitoring-shared-services-admin"
+  },
+  "blackbox_exporter_hostname": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-pttp-ti-ima-bb-alb-1459500725.eu-west-2.elb.amazonaws.com"
+  },
+  "blackbox_exporter_hostname_v2": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-mojo-ti-ima-bb-alb-1887667985.eu-west-2.elb.amazonaws.com"
+  },
+  "blackbox_exporter_repository": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/pttp-ti-ima-blackbox-exporter"
+    }
+  },
+  "blackbox_exporter_repository_v2": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/mojo-ti-ima-blackbox-exporter"
+    }
+  },
+  "eks_cluster_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://1F18F763138303F0E8F543610CEF653A.gr7.eu-west-2.eks.amazonaws.com"
+  },
+  "eks_cluster_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "mojo-ti-ima-cluster"
+  },
+  "eks_cluster_worker_iam_role_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:iam::068084030754:role/mojo-ti-ima-cluster20210420004445866000000024"
+  },
+  "env": {
+    "sensitive": false,
+    "type": "string",
+    "value": "ti"
+  },
+  "grafana_database_config": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "grafana_db_in_security_group_id": "string",
+        "grafana_db_subnet_group_name": "string",
+        "rds_monitoring_role_arn": "string"
+      }
+    ],
+    "value": {
+      "grafana_db_in_security_group_id": "sg-088292bf687ff2920",
+      "grafana_db_subnet_group_name": "pttp-ti-ima-db-subnet-group",
+      "rds_monitoring_role_arn": "arn:aws:iam::068084030754:role/pttp-ti-ima-rds-monitoring-role"
+    }
+  },
+  "grafana_database_config_v2": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "grafana_db_in_security_group_id": "string",
+        "grafana_db_subnet_group_name": "string",
+        "rds_monitoring_role_arn": "string"
+      }
+    ],
+    "value": {
+      "grafana_db_in_security_group_id": "sg-0c8448a70f87abdaf",
+      "grafana_db_subnet_group_name": "mojo-ti-ima-db-subnet-group",
+      "rds_monitoring_role_arn": "arn:aws:iam::068084030754:role/mojo-ti-ima-rds-monitoring-role"
+    }
+  },
+  "grafana_hostname": {
+    "sensitive": false,
+    "type": "string",
+    "value": "monitoring-alerting-ti.dev.vpn.justice.gov.uk"
+  },
+  "grafana_hostname_v2": {
+    "sensitive": false,
+    "type": "string",
+    "value": "monitoring-alerting-ti-v2.dev.vpn.justice.gov.uk"
+  },
+  "prometheus_hostname": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-pttp-ti-ima-prom-alb-39683088.eu-west-2.elb.amazonaws.com"
+  },
+  "prometheus_hostname_v2": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-mojo-ti-ima-prom-alb-364538956.eu-west-2.elb.amazonaws.com"
+  },
+  "prometheus_repository": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/pttp-ti-ima-prometheus"
+    }
+  },
+  "prometheus_repository_v2": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/mojo-ti-ima-prometheus"
+    }
+  },
+  "prometheus_thanos_storage_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "pttp-ti-ima-thanos-storage"
+  },
+  "prometheus_thanos_storage_kms_key_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "00593193-13d4-4c70-a14b-2b379dd32013"
+  },
+  "snmp_exporter_hostname": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-pttp-ti-ima-snmp-alb-1816216360.eu-west-2.elb.amazonaws.com"
+  },
+  "snmp_exporter_hostname_v2": {
+    "sensitive": false,
+    "type": "string",
+    "value": "internal-mojo-ti-ima-snmp-alb-93633764.eu-west-2.elb.amazonaws.com"
+  },
+  "snmp_exporter_repository": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/pttp-ti-ima-snmp-exporter"
+    }
+  },
+  "snmp_exporter_repository_v2": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "registry_id": "string",
+        "repository_url": "string"
+      }
+    ],
+    "value": {
+      "registry_id": "068084030754",
+      "repository_url": "068084030754.dkr.ecr.eu-west-2.amazonaws.com/mojo-ti-ima-snmp-exporter"
+    }
+  }
+}

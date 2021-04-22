@@ -1,6 +1,6 @@
 apiVersion: v2
-name: prometheus-thanos
-description: A Helm chart for Kubernetes Prometheus / Thanos
+name: infrastructure-monitoring
+description: A Helm chart for MoJO Staff Infrastructure Monitoring and Alerting Platform deployments
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
