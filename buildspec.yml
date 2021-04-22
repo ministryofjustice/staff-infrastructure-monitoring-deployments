@@ -1,8 +1,6 @@
 version: 0.2
 
 env:
-  variables:
-
   parameter-store:
     TERRAFORM_OUTPUTS: "/terraform_staff_infrastructure_monitoring/$ENV/outputs"
     
