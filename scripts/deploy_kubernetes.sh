@@ -37,7 +37,7 @@ prometheus.image=$prometheus_image_repo,\
 alertmanager.image=prom/alertmanager,\
 prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
-thanos.image=$TF_VAR_thanos_image_repository_url
+thanos.image=$THANOS_IMAGE_REPOSITORY_URL
 
 # Display all Pods
 echo "List of Pods:"
