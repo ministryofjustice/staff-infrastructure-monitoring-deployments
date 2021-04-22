@@ -7,8 +7,7 @@ env:
     TF_IN_AUTOMATION: true
     TF_VAR_owner_email: pttp@justice.gov.uk
   parameter-store:
-    SHARED_SERVICES_ACCOUNT_ID: "/codebuild/staff_device_shared_services_account_id"
-    TF_VAR_assume_role: "/codebuild/pttp-ci-ima-pipeline/$ENV/assume_role"
+    OUTPUTS: "/terraform_staff_infrastructure_monitoring/$ENV/outputs"
     
 phases:
   install:
