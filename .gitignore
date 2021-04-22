@@ -1,3 +1,2 @@
 .env
 *.json
-terraform_outputs.json
