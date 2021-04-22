@@ -1,0 +1,10 @@
+prometheus:
+  image: ""
+thanos:
+  image: ""
+  compactor:
+    enabled: false
+prometheusThanosStorageBucket:
+  bucketName: ""
+  endpoint: "s3.eu-west-2.amazonaws.com"
+  kmsKeyId: ""
