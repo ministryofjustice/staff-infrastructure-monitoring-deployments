@@ -19,3 +19,14 @@ spec:
         image: {{ .Values.prometheus.image }}:latest
         ports:
         - containerPort: 9090
+        volumeMounts:
+        - name: alert-rules
+          mountPath: "/alerts"
+          readOnly: true
+      volumes:
+      - name: alert-rules
+        configMap:
+          name: prometheus-alert-rules-configmap
+          items:
+          - key: "alertRules.yml"
+            path: "alertRules.yml"
