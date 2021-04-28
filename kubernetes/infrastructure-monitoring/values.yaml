@@ -1,9 +1,13 @@
+environment: ""
 prometheus:
   image: ""
 thanos:
   image: ""
   compactor:
     enabled: false
+cloudwatchExporter:
+  image: ""
+  assumeRoleArns: ""
 prometheusThanosStorageBucket:
   bucketName: ""
   endpoint: "s3.eu-west-2.amazonaws.com"
