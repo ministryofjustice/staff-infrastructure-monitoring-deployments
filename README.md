@@ -10,5 +10,5 @@ terraform output -json >> terraform_outputs.json
 
 1. Copy that file in this repository and then run
 ```
-export OUTPUTS=$(cat ./terraform_outputs.json)
+export TERRAFORM_OUTPUTS=$(cat ./terraform_outputs.json)
 ```
