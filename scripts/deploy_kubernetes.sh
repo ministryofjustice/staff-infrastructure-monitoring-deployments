@@ -58,8 +58,6 @@ upgrade_ima_chart(){
   prometheus_image_repo=$(echo $outputs | jq '.prometheus_repository_v2.value.repository_url' | sed 's/"//g')
   prometheus_thanos_storage_bucket_name=$(echo $outputs | jq '.prometheus_thanos_storage_bucket_name.value' | sed 's/"//g')
   prometheus_thanos_storage_kms_key_id=$(echo $outputs | jq '.prometheus_thanos_storage_kms_key_id.value' | sed 's/"//g')
-  ecr_url="${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com"
-  cloudwatch_exporter_image="${ecr_url}/cloudwatch-exporter"
   cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
 
   echo "Deploying IMA Helm chart"
@@ -71,7 +69,7 @@ prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
 thanos.image=$THANOS_IMAGE_REPOSITORY_URL,\
 cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
-cloudwatchExporter.image=$cloudwatch_exporter_image
+cloudwatchExporter.image=$CLOUDWATCH_EXPORTER_IMAGE_REPOSITORY_URL
 }
 
 main(){
