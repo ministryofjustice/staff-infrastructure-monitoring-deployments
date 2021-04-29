@@ -42,3 +42,8 @@ spec:
           - "--receive.local-endpoint=127.0.0.1:10903"
           - "--remote-write.address=0.0.0.0:10908"
           - "--log.level=debug"
+        volumeMounts:
+        - name: thanos-receiver-data
+          mountPath: "/var/lib/prometheus"
+      volumes:
+      - name: thanos-receiver-data

@@ -19,11 +19,21 @@ spec:
         image: {{ .Values.prometheus.image }}:latest
         ports:
         - containerPort: 9090
+        args:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+          - "--storage.tsdb.min-block-duration=2h"
+          - "--storage.tsdb.max-block-duration=2h"
+          - "--storage.tsdb.path=/var/lib/prometheus"
+          - "--web.enable-lifecycle"
+          - "--log.level=debug"
         volumeMounts:
+        - name: prometheus-data
+          mountPath: "/var/lib/prometheus"
         - name: alert-rules
           mountPath: "/alerts"
           readOnly: true
       volumes:
+      - name: prometheus-data
       - name: alert-rules
         configMap:
           name: prometheus-alert-rules-configmap
