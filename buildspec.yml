@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   parameter-store:
-    TERRAFORM_OUTPUTS: "/terraform_staff_infrastructure_monitoring/$ENV/outputs"
     THANOS_IMAGE_REPOSITORY_URL: "/codebuild/pttp-ci-ima-pipeline/thanos_image_repository_url"
     CLOUDWATCH_EXPORTER_IMAGE_REPOSITORY_URL: "/codebuild/pttp-ci-ima-pipeline/cloudwatch_exporter_image_repository_url"
 
