@@ -69,7 +69,11 @@ prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
 thanos.image=$THANOS_IMAGE_REPOSITORY_URL,\
 cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
-cloudwatchExporter.image=$CLOUDWATCH_EXPORTER_IMAGE_REPOSITORY_URL
+cloudwatchExporter.image=$CLOUDWATCH_EXPORTER_IMAGE_REPOSITORY_URL,\
+azure.subscription_id=$DEVL_SUBSCRIPTION_ID,\
+azure.client_id=$DEVL_CLIENT_ID,\
+azure.client_secret=$DEVL_CLIENT_SECRET,\
+azure.tenant_id=$DEVL_TENANT_ID
 }
 
 main(){

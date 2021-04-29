@@ -29,7 +29,7 @@ spec:
       volumes:
       - name: configuration
         configMap:
-          name: azure-metrics-exporter-configmap
+          name: {{ .Release.Name }}-azure-metrics-exporter-configmap
           items:
           - key: "azure.yml"
             path: "azure.yml"
