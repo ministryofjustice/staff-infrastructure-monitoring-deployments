@@ -3,11 +3,7 @@
 set -euo pipefail
 
 get_outputs() {
-  echo $TERRAFORM_OUTPUTS
-}
-
-get_env(){
-  echo $(get_outputs | jq '.env.value' | sed 's/"//g')
+  echo `aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value`
 }
 
 create_kubeconfig(){
@@ -28,16 +24,14 @@ create_kubeconfig(){
 
 upgrade_auth_configmap(){
   outputs=$(get_outputs)
-  env=$(get_env)
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
   echo "Deploying auth configmap"
-  helm upgrade --install --atomic mojo-$env-ima-configmap ./kubernetes/auth-configmap --set rolearn=$cluster_role_arn
+  helm upgrade --install --atomic mojo-$ENV-ima-configmap ./kubernetes/auth-configmap --set rolearn=$cluster_role_arn
 }
 
 get_role_arn_for_account(){
   outputs=$(get_outputs)
-  env=$(get_env)
-  [[ $env == "production" ]] \
+  [[ $ENV == "production" ]] \
     && role_arn=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$1/outputs | jq -r .Parameter.Value | jq .cloudwatch_exporter_assume_role_arn | sed 's/"//g'`\
     || role_arn=""
   echo $role_arn
@@ -45,15 +39,13 @@ get_role_arn_for_account(){
 
 get_cloudwatch_exporter_role_arns(){
   outputs=$(get_outputs)
-  env=$(get_env)
-  role_arn=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$env/outputs | jq -r .Parameter.Value | jq .cloudwatch_exporter_access_role_arns.value | sed 's/"//g'`\
+  role_arn=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .cloudwatch_exporter_access_role_arns.value | sed 's/"//g'`\
     || role_arn=""
   echo $role_arn
 }
 
 upgrade_ima_chart(){
   outputs=$(get_outputs)
-  env=$(get_env)
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
   prometheus_image_repo=$(echo $outputs | jq '.prometheus_repository_v2.value.repository_url' | sed 's/"//g')
   prometheus_thanos_storage_bucket_name=$(echo $outputs | jq '.prometheus_thanos_storage_bucket_name.value' | sed 's/"//g')
@@ -61,8 +53,8 @@ upgrade_ima_chart(){
   cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
 
   echo "Deploying IMA Helm chart"
-  helm upgrade --install mojo-$env-ima ./kubernetes/infrastructure-monitoring --set \
-environment=$env,\
+  helm upgrade --install mojo-$ENV-ima ./kubernetes/infrastructure-monitoring --set \
+environment=$ENV,\
 prometheus.image=$prometheus_image_repo,\
 alertmanager.image=prom/alertmanager,\
 prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
