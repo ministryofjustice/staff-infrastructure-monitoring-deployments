@@ -56,3 +56,15 @@ data:
           - name: BucketSizeBytes
             statistics: [Average]
             nilToZero: true
+      - regions: [eu-west-2]
+        roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
+        type: DNS-Bind-Server
+        length: 300
+        metrics:
+          - name: QrySERVFAIL
+            statistics: [Average, Maximum, Minimum]
+            nilToZero: true
+          - name: QrySuccess
+            statistics: [Average, Maximum, Minimum]
+            nilToZero: true
+      
