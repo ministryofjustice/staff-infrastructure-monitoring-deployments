@@ -207,5 +207,7 @@ discovery:
       - name: ProcessedBytes
         statistics: [Average]
         nilToZero: true
+static:
+  jobs:
 {{ include "cloudwatchMetrics.production.custom" . | indent 2 }}
 {{ end }}

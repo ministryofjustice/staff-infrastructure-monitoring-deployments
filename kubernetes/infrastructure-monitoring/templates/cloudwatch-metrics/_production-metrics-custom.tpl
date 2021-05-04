@@ -1,12 +1,14 @@
 {{ define "cloudwatchMetrics.production.custom" }}
-- type: ECS/ContainerInsights
+- namespace: ECS/ContainerInsights
+  name: "ECS - Container Insights"
   regions: [eu-west-2]
   length: 300
   metrics:
     - name: RunningTaskCount
       statistics: [Average]
       nilToZero: true
-- type: DNS-Bind-Server
+- namespace: DNS-Bind-Server
+  name: "DNS Bind Server"
   regions: [eu-west-2]
   length: 300
   metrics:
@@ -70,7 +72,8 @@
     - name: TruncatedResp
       statistics: [Average, Maximum, Minimum]
       nilToZero: true
-- type: Kea-DHCP
+- namespace: Kea-DHCP
+  name: "Kea DHCP"
   regions: [eu-west-2]
   length: 300
   metrics:
