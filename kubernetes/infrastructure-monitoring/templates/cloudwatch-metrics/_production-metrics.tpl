@@ -208,6 +208,5 @@ discovery:
         statistics: [Average]
         nilToZero: true
 static:
-  jobs:
-{{ include "cloudwatchMetrics.production.custom" . | indent 2 }}
+{{- include "cloudwatchMetrics.production.custom" . }}
 {{ end }}
