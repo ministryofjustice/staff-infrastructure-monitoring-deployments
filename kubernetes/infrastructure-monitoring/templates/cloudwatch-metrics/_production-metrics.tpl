@@ -196,14 +196,6 @@ discovery:
       - name: Throttles
         statistics: [Sum]
         nilToZero: true
-  - type: STANDBY_HA_SYNC_FAILED
-    regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-    length: 300
-    metrics:
-      - name: HA_SYNC_FAILED
-        statistics: [Sum]
-        nilToZero: true
   - type: ECS/ContainerInsights
     regions: [eu-west-2]
     roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
@@ -373,6 +365,9 @@ discovery:
         nilToZero: true
       - name: reclaimed-leases
         statistics: [Average, Sum]
+        nilToZero: true
+      - name: STANDBY_HA_SYNC_FAILED
+        statistics: [Sum]
         nilToZero: true
   - type: AWS/NetworkELB
     regions: [eu-west-2]
