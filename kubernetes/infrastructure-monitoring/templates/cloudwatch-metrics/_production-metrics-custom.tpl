@@ -6,22 +6,6 @@
     - name: RunningTaskCount
       statistics: [Average]
       nilToZero: true
-- type: Kea-DHCP-Service
-  regions: [eu-west-2]
-  length: 300
-  metrics:
-    - name: pkt4-discover-received
-      statistics: [Average]
-      nilToZero: true
-    - name: pkt4-offer-sent
-      statistics: [Average]
-      nilToZero: true
-    - name: pkt4-request-received
-      statistics: [Average]
-      nilToZero: true
-    - name: pkt4-ack-sent
-      statistics: [Average]
-      nilToZero: true
 - type: DNS-Bind-Server
   regions: [eu-west-2]
   length: 300
