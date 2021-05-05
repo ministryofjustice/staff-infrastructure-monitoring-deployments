@@ -14,6 +14,17 @@ data:
     remote_write:
       - url: http://{{ .Release.Name }}-thanos-receiver:10908/api/v1/receive
 
+    # Alertmanager configuration
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+              - {{ .Release.Name }}-alertmanager:9093
+
+    # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+    rule_files:
+    - "/alerts/alertRules.yml"
+
     scrape_configs:
       - job_name: prometheus
         honor_labels: true
