@@ -27,6 +27,9 @@ spec:
         - name: configuration
           mountPath: "/config"
           readOnly: true
+        - name: templates
+          mountPath: "/templates"
+          readOnly: true
       volumes:
       - name: configuration
         configMap:
@@ -34,3 +37,9 @@ spec:
           items:
           - key: "alertmanager.yml"
             path: "alertmanager.yml"
+      - name: templates
+        configMap:
+          name: alertmanager-slack-alerts-templates-configmap
+          items:
+          - key: "slack-alerts-templates.tmpl"
+            path: "slack-alerts-templates.tmpl"

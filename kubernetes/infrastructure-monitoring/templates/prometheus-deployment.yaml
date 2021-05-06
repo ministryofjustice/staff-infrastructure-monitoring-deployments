@@ -32,6 +32,8 @@ spec:
         - name: alert-rules
           mountPath: "/alerts"
           readOnly: true
+        - name: configuration
+          mountPath: "/etc/prometheus"
       volumes:
       - name: prometheus-data
       - name: alert-rules
@@ -40,3 +42,9 @@ spec:
           items:
           - key: "alertRules.yml"
             path: "alertRules.yml"
+      - name: configuration
+        configMap:
+          name: prometheus-configmap
+          items:
+          - key: "prometheus.yml"
+            path: "prometheus.yml"

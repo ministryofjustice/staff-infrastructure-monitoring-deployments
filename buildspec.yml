@@ -2,9 +2,8 @@ version: 0.2
 
 env:
   parameter-store:
-    TERRAFORM_OUTPUTS: "/terraform_staff_infrastructure_monitoring/$ENV/outputs"
-    THANOS_IMAGE_REPOSITORY_URL: "/codebuild/pttp-ci-ima-pipeline/thanos_image_repository_url"
-    CLOUDWATCH_EXPORTER_IMAGE_REPOSITORY_URL: "/codebuild/pttp-ci-ima-pipeline/cloudwatch_exporter_image_repository_url"
+    SHARED_SERVICES_ECR_BASE_URL: "/codebuild/pttp-ci-ima-pipeline/shared_services_base_repository_url"
+
     DEVL_SUBSCRIPTION_ID: "/codebuild/pttp-ci-ima-pipeline/devl-subscription-id"
     DEVL_CLIENT_ID: "/codebuild/pttp-ci-ima-pipeline/devl-client-id"
     DEVL_CLIENT_SECRET: "/codebuild/pttp-ci-ima-pipeline/devl-client-secret"

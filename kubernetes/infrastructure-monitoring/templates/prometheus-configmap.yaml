@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-configmap
+data:
+  prometheus.yml: |
+    global:
+      scrape_timeout:      60s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
+      scrape_interval:     180s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
+      evaluation_interval: 60s # Evaluate rules every 60 seconds. The default is every 1 minute.
+      external_labels:
+        environment: production
+
+    remote_write:
+      - url: http://{{ .Release.Name }}-thanos-receiver:10908/api/v1/receive
+
+    # Alertmanager configuration
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+              - {{ .Release.Name }}-alertmanager:9093
+
+    # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+    rule_files:
+    - "/alerts/alertRules.yml"
+
+    scrape_configs:
+      - job_name: prometheus
+        honor_labels: true
+        static_configs:
+          - targets:
+            - localhost:9090
+        metrics_path: /metrics
+
+      - job_name: cloudwatch
+        honor_labels: true
+        static_configs:
+          - targets: ['{{ .Release.Name }}-cloudwatch-exporter:5000']
+
+      - job_name: docker_images
+        scheme: https
+        static_configs:
+          - targets:
+            - raw.githubusercontent.com:443
+        metrics_path: /ministryofjustice/staff-device-docker-base-images/main/prometheus_metrics/docker_image_versions.txt
+
+      - job_name: grafana
+        honor_labels: true
+        scheme: https
+        static_configs:
+          - targets:
+            - monitoring-alerting.staff.service.justice.gov.uk:443
+        metrics_path: /metrics
+
+    
