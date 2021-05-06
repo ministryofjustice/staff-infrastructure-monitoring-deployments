@@ -13,9 +13,10 @@ prometheusThanosStorageBucket:
   endpoint: "s3.eu-west-2.amazonaws.com"
   kmsKeyId: ""
 azure:
-  subscription_id: ""
-  client_id : ""
-  client_secret: ""
-  tenant_id: ""
+  devl:
+    subscription_id: ""
+    client_id : ""
+    client_secret: ""
+    tenant_id: ""
 alertmanager:
   image: ""
