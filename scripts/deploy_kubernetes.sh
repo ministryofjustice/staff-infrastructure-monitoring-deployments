@@ -49,10 +49,14 @@ environment=$ENV,\
 prometheus.image=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
 alertmanager.image=prom/alertmanager,\
 prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
+cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter,\
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
 thanos.image=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
 cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
-cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter
+azure.devl.subscription_id=$DEVL_SUBSCRIPTION_ID,\
+azure.devl.client_id=$DEVL_CLIENT_ID,\
+azure.devl.client_secret=$DEVL_CLIENT_SECRET,\
+azure.devl.tenant_id=$DEVL_TENANT_ID
 }
 
 main(){
