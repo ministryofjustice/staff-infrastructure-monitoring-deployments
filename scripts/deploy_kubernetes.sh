@@ -36,6 +36,13 @@ get_cloudwatch_exporter_role_arns(){
   echo $role_arn
 }
 
+deploy_nginx_ingress() {
+  echo "Deploying NGINX Ingress"
+  helm repo add nginx-stable https://helm.nginx.com/stable
+  helm repo update
+  helm upgrade --install mojo-$ENV-ima-nginx-ingress nginx-stable/nginx-ingress
+}
+
 upgrade_ima_chart(){
   outputs=$(get_outputs)
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
@@ -64,6 +71,7 @@ main(){
 
   create_kubeconfig
   upgrade_auth_configmap
+  deploy_nginx_ingress
   upgrade_ima_chart
 
   # Display all Pods
