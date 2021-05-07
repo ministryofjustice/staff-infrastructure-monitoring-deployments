@@ -37,6 +37,12 @@ data:
         honor_labels: true
         static_configs:
           - targets: ['{{ .Release.Name }}-cloudwatch-exporter:5000']
+      
+      - job_name: azure_monitor
+        honor_labels: true
+        static_configs:
+          - targets:
+            - '{{ .Release.Name }}-azure-devl-metrics-exporter:9276'
 
       - job_name: docker_images
         scheme: https
