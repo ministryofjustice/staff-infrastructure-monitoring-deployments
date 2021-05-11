@@ -9,7 +9,7 @@ spec:
   - http:
       paths:
       - path: /prometheus
-        pathType: Prefix
+        pathType: Exact
         backend:
           service:
               name: thanos-querier

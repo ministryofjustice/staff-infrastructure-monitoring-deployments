@@ -5,14 +5,12 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: "/"
 spec:
   rules:
-  - host: internal-mojo-{{ .Values.environment }}-ima
-    http:
+  - http:
       paths:
-        - path: /prometheus
-          pathType: Exact
+        - path: /
+          pathType: Prefix
           backend:
             service:
               name: {{ .Release.Name }}-thanos-querier
