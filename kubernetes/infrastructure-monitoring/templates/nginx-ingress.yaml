@@ -3,12 +3,13 @@ kind: Ingress
 metadata:
   name: {{ .Release.Name }}-nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+#    external-dns.alpha.kubernetes.io/hostname: prometheus-test.dev.staff.service.justice.gov.uk
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - http:
+#  - host: "prometheus-test.dev.staff.service.justice.gov.uk"
+  - host: "*.amazonaws.com"
+    http:
       paths:
         - path: /
           pathType: Prefix
@@ -17,3 +18,5 @@ spec:
               name: {{ .Release.Name }}-thanos-querier
               port:
                 number: 10902
+
+
