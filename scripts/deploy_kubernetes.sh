@@ -45,7 +45,7 @@ deploy_nginx_ingress() {
 
 deploy_external_dns() {
   echo "getting hosted zone domain"
-  HOSTED_ZONE_DOMAIN=$(aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/development/vpn_hosted_zone_domain | jq -r .Parameter.Value)
+  HOSTED_ZONE_DOMAIN=$(aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/development/internal_vpn_hosted_zone_domain | jq -r .Parameter.Value)
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo update
 

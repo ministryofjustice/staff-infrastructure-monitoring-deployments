@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: "prometheus-test.dev.staff.service.justice.gov.uk"
+  - host: "prometheus-test.dev.internal.vpn.justice.gov.uk"
     http:
       paths:
         - path: /
