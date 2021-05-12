@@ -44,19 +44,18 @@ deploy_nginx_ingress() {
 }
 
 deploy_external_dns() {
-  echo "getting hosted zone id"
-  HOSTED_ZONE_ID=$(aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/development/vpn_hosted_zone_id | jq -r .Parameter.Value)
   echo "getting hosted zone domain"
-  HOSTED_ZONE_DOMAIN=$(aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/development/vpn_hosted_zone_domain | jq -r .Parameter.Value)
+  HOSTED_ZONE_DOMAIN=$(aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/development/vpn_hosted_zone_domain | jq -r .Parameter.Value)
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo update
 
+  echo $HOSTED_ZONE_DOMAIN
   helm upgrade --install mojo-$ENV-ima-external-dns bitnami/external-dns \
   --set provider=aws \
+  --set source=ingress \
   --set domainFilters[0]=$HOSTED_ZONE_DOMAIN\
   --set policy=sync \
   --set registry=txt \
-  --set txtOwnerId=$HOSTED_ZONE_ID \
   --set interval=3m \
   # --set rbac.create=true \
   # --set rbac.serviceAccountName=external-dns \
