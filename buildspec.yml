@@ -1,8 +1,6 @@
 version: 0.2
 
 env:
-  variables:
-    KUBERNETES_NAMESPACE: $ENV
   parameter-store:
     SHARED_SERVICES_ECR_BASE_URL: "/codebuild/pttp-ci-ima-pipeline/shared_services_base_repository_url"
     DEVL_SUBSCRIPTION_ID: "/codebuild/pttp-ci-ima-pipeline/devl-subscription-id"
@@ -21,7 +19,7 @@ phases:
   build:
     commands:
       - export AWS_DEFAULT_REGION=eu-west-2
-      - ./scripts/deploy_kubernetes.sh
+      - KUBERNETES_NAMESPACE=$ENV ./scripts/deploy_kubernetes.sh
 
 
   post_build:
