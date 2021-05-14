@@ -45,11 +45,10 @@ deploy_nginx_ingress() {
 
 deploy_external_dns() {
   echo "getting hosted zone domain"
-  HOSTED_ZONE_DOMAIN=$(aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/development/internal_vpn_hosted_zone_domain | jq -r .Parameter.Value)
+  HOSTED_ZONE_DOMAIN=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo update
 
-  echo $HOSTED_ZONE_DOMAIN
   helm upgrade --install mojo-$ENV-ima-external-dns bitnami/external-dns \
   --set provider=aws \
   --set source=ingress \
@@ -57,9 +56,6 @@ deploy_external_dns() {
   --set policy=sync \
   --set registry=txt \
   --set interval=3m \
-  # --set rbac.create=true \
-  # --set rbac.serviceAccountName=external-dns \
-  # --set rbac.serviceAccountAnnotations.eks\.amazonaws\.com/role-arn=<ROLE_ARN>
 }
 
 upgrade_ima_chart(){
@@ -82,7 +78,8 @@ cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
 azure.devl.subscription_id=$DEVL_SUBSCRIPTION_ID,\
 azure.devl.client_id=$DEVL_CLIENT_ID,\
 azure.devl.client_secret=$DEVL_CLIENT_SECRET,\
-azure.devl.tenant_id=$DEVL_TENANT_ID
+azure.devl.tenant_id=$DEVL_TENANT_ID,\
+hosted_zone_domain=$HOSTED_ZONE_DOMAIN
 }
 
 main(){
