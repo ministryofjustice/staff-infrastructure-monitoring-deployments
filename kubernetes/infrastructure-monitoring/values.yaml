@@ -1,4 +1,5 @@
 environment: ""
+hosted_zone_domain: ""
 prometheus:
   image: ""
 thanos:
