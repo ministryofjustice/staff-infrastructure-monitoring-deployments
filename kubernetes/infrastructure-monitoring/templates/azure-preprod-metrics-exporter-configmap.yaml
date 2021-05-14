@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-azure-devl-metrics-exporter-configmap
+  name: azure-preprod-metrics-exporter-configmap
 data:
   azure.yml: |
     active_directory_authority_url: "https://login.microsoftonline.com/"
     resource_manager_url: "https://management.azure.com/"
     credentials:
-      subscription_id: "{{ .Values.azure.devl.subscription_id }}"
-      client_id: "{{ .Values.azure.devl.client_id }}"
-      client_secret: "{{ .Values.azure.devl.client_secret }}"
-      tenant_id: "{{ .Values.azure.devl.tenant_id }}"
+      subscription_id: "eec92386-9ef2-48e3-987d-bdc6fb1e1e1e"
+      client_id: "aefc167d-1e4d-4b7f-bd11-5e73c447bd32"
+      client_secret: "f7a0c6d0-b88b-419e-a7d2-c291a579dfb8"
+      tenant_id: "34c125c9-c7f3-486f-a78c-cf762c718831"
 
     resource_tags:
       - resource_tag_name: "prometheus"

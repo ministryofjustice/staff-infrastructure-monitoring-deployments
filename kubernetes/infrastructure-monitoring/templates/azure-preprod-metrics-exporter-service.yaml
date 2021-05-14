@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-azure-devl-metrics-exporter
+  name: azure-preprod-metrics-exporter-configmap
 spec:
   selector:
-    app: azure-devl-metrics-exporter
+    app: azure-preprod-metrics-exporter
   ports:
     - name: http
       protocol: TCP

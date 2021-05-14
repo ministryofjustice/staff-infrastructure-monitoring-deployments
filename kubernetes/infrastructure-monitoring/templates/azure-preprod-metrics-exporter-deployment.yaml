@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-azure-devl-metrics-exporter
+  name: azure-preprod-metrics-exporter-configmap
   labels:
-    app: azure-devl-metrics-exporter
+    app: azure-preprod-metrics-exporter
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: azure-devl-metrics-exporter
+      app: azure-preprod-metrics-exporter
   template:
     metadata:
       labels:
-        app: azure-devl-metrics-exporter
+        app: azure-preprod-metrics-exporter
     spec:
       containers:
-      - name: azure-devl-metrics-exporter
+      - name: azure-preprod-metrics-exporter
         image: robustperception/azure_metrics_exporter:latest
         command: ["azure_metrics_exporter"]
         args: 
@@ -29,7 +29,7 @@ spec:
       volumes:
       - name: configuration
         configMap:
-          name: {{ .Release.Name }}-azure-devl-metrics-exporter-configmap
+          name: azure-preprod-metrics-exporter-configmap
           items:
           - key: "azure.yml"
             path: "azure.yml"
