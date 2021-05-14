@@ -44,7 +44,7 @@ upgrade_ima_chart(){
   cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
 
   echo "Deploying IMA Helm chart"
-  helm upgrade --install mojo-$ENV-ima ./kubernetes/infrastructure-monitoring --set \
+  helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
 environment=$ENV,\
 prometheus.image=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
 alertmanager.image=prom/alertmanager,\
@@ -68,7 +68,7 @@ main(){
 
   # Display all Pods
   echo "List of Pods:"
-  kubectl get pods
+  kubectl get pods --namespace $KUBERNETES_NAMESPACE
 }
 
 main
