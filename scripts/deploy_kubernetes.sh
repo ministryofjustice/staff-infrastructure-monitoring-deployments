@@ -55,7 +55,7 @@ deploy_external_dns() {
   --set domainFilters[0]=$HOSTED_ZONE_DOMAIN\
   --set policy=sync \
   --set registry=txt \
-  --set interval=3m \
+  --set interval=3m
 }
 
 upgrade_ima_chart(){
