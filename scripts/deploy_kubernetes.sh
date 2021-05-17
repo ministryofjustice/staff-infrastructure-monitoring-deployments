@@ -91,6 +91,7 @@ main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
 
   get_outputs
+  install_dependent_helm_chart
   create_kubeconfig
   upgrade_auth_configmap
   deploy_nginx_ingress
