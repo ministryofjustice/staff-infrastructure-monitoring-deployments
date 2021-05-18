@@ -7,6 +7,10 @@ env:
     DEVL_CLIENT_ID: "/codebuild/pttp-ci-ima-pipeline/devl-client-id"
     DEVL_CLIENT_SECRET: "/codebuild/pttp-ci-ima-pipeline/devl-client-secret"
     DEVL_TENANT_ID: "/codebuild/pttp-ci-ima-pipeline/devl-tenant-id"
+    PREPROD_SUBSCRIPTION_ID: "/codebuild/pttp-ci-ima-pipeline/preprod-subscription-id"
+    PREPROD_CLIENT_ID: "/codebuild/pttp-ci-ima-pipeline/preprod-client-id"
+    PREPROD_CLIENT_SECRET: "/codebuild/pttp-ci-ima-pipeline/preprod-client-secret"
+    PREPROD_TENANT_ID: "/codebuild/pttp-ci-ima-pipeline/preprod-tenant-id"
 
 phases:
   install:
