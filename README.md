@@ -8,6 +8,7 @@
   - [Set up AWS Vault](#set-up-aws-vault)
 - [Usage](#usage)
   - [Deploy to your namespace](#deploy-to-your-namespace)
+  - [Removing your namespace and associated resources](#removing-your-namespace-and-associated-resources)
 - [Our other repositories](#our-other-repositories)
 - [License](#license)
 
@@ -48,6 +49,12 @@ make deploy
 
 5. The script will output a prometheus endpoint. You can use this endpoint when adding a prometheus data source in the development grafana instance.
 
+### Removing your namespace and associated resources
+This will delete your namespace on the cluster and all pods/services etc. associated with it. Included the alerting configuration which is deployed from the [Staff Infrastructure Monitoring Config repo](https://github.com/ministryofjustice/staff-infrastructure-monitoring-datasource-config).
+
+```sh
+  make remove-workspace
+```
 ### Our other repositories
 
 - [IMA Platform](https://github.com/ministryofjustice/staff-infrastructure-monitoring) - to monitor MoJ infrastructure and physical devices
