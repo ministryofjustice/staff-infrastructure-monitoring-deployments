@@ -2,6 +2,11 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
+  dimensions:
+  - name: ClusterName
+    values: staff-device-{{ .Values.environment }}-dhcp-cluster
+  - name: ClusterName
+    values: staff-device-{{ .Values.environment }}-dns-cluster"
   metrics:
   - name: RunningTaskCount
     statistics: [Average]
@@ -115,12 +120,71 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
+  dimensions
+  - name: Server
+    value: primary
+  - name: Server
+    value: standby
+  metrics:
+  - name: pkt4-offer-sent
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-request-received
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-ack-sent
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-discover-received
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-nak-received
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-nak-sent
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: pkt4-decline-received
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+- namespace: Kea-DHCP
+  name: "Kea DHCP"
+  regions: [eu-west-2]
+  dimensions:
+  - name: Subnet
+    value: 10.178.0.0/16
+  - name: Subnet
+    value: 10.86.176.0/24
+  - name: Subnet
+    value: 10.86.182.0/24
+  - name: Subnet
+    value: 10.92.112.0/24
+  - name: Subnet
+    value: 10.92.96.0/24
   metrics:
   - name: lease-percent-used
     statistics: [Average, Sum]
     nilToZero: true
     period: 300
     length: 300
+- namespace: Kea-DHCP
+  name: "Kea DHCP"
+  regions: [eu-west-2]
+  metrics:
   - name: STANDBY_WARN
     statistics: [Average, Sum]
     nilToZero: true
@@ -192,41 +256,6 @@
     period: 300
     length: 300
   - name: STANDBY_ALLOC_ENGINE_V4_ALLOC_FAIL_CLASSES
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-discover-received
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-offer-sent
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-request-received
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-ack-sent
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-nak-received
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-nak-sent
-    statistics: [Average, Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: pkt4-decline-received
     statistics: [Average, Sum]
     nilToZero: true
     period: 300
