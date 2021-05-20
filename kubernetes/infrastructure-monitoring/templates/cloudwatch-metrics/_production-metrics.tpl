@@ -208,25 +208,5 @@ discovery:
         statistics: [Average, Sum]
         nilToZero: true
 static:
-- namespace: AWS/ECS
-  regions: [eu-west-2]
-  name: "AWS/ECS"
-  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-  dimensions:
-  - name: ClusterName
-    value: staff-device-{{ .Values.environment }}-dhcp-cluster
-  - name: ClusterName
-    value: staff-device-{{ .Values.environment }}-dns-cluster"
-  metrics:
-  - name: CPUUtilization
-    statistics: [Average, Minimum, Maximum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: MemoryUtilization
-    statistics: [Average]
-    nilToZero: true
-    period: 300
-    length: 300
 {{- include "cloudwatchMetrics.production.custom" . }}
 {{ end }}
