@@ -4,9 +4,51 @@
   regions: [eu-west-2]
   dimensions:
   - name: ClusterName
-    values: staff-device-{{ .Values.environment }}-dhcp-cluster
+    value: staff-device-{{ .Values.environment }}-dhcp-cluster
+  - name: ServiceName
+    value: staff-device-{{ .Values.environment }}-dhcp-standby-service
+  metrics:
+  - name: RunningTaskCount
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+- namespace: ECS/ContainerInsights
+  name: "ECS - Container Insights"
+  regions: [eu-west-2]
+  dimensions:
   - name: ClusterName
-    values: staff-device-{{ .Values.environment }}-dns-cluster"
+    value: staff-device-{{ .Values.environment }}-dhcp-cluster
+  - name: ServiceName
+    value: staff-device-{{ .Values.environment }}-dhcp-primary-service
+  metrics:
+  - name: RunningTaskCount
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+- namespace: ECS/ContainerInsights
+  name: "ECS - Container Insights"
+  regions: [eu-west-2]
+  dimensions:
+  - name: ClusterName
+    value: staff-device-{{ .Values.environment }}-dhcp-cluster
+  - name: ServiceName
+    value: staff-device-{{ .Values.environment }}-dhcp-api-service
+  metrics:
+  - name: RunningTaskCount
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+- namespace: ECS/ContainerInsights
+  name: "ECS - Container Insights"
+  regions: [eu-west-2]
+  dimensions:
+  - name: ClusterName
+    value: staff-device-{{ .Values.environment }}-dns-cluster
+  - name: ServiceName
+    value: staff-device-{{ .Values.environment }}-dns-service
   metrics:
   - name: RunningTaskCount
     statistics: [Average]
@@ -120,7 +162,7 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
-  dimensions
+  dimensions:
   - name: Server
     value: primary
   - name: Server
