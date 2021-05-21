@@ -317,4 +317,14 @@
     nilToZero: true
     period: 300
     length: 300
+  - name: ERROR
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: FATAL
+    statistics: [Average, Sum]
+    nilToZero: true
+    period: 300
+    length: 300
 {{ end }}
