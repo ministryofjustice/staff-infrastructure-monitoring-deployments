@@ -201,11 +201,11 @@ discovery:
     roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
     length: 300
     metrics:
-      - name: UnHealthyHostCount
-        statistics: [Average, Sum]
-        nilToZero: true
       - name: ProcessedBytes
         statistics: [Average]
+        nilToZero: true
+      - name: UnHealthyHostCount
+        statistics: [Average, Sum]
         nilToZero: true
 static:
 {{- include "cloudwatchMetrics.production.custom" . }}

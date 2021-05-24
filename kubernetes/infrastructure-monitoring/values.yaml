@@ -1,4 +1,5 @@
 environment: ""
+hosted_zone_domain: ""
 prometheus:
   image: ""
 thanos:
@@ -7,13 +8,18 @@ thanos:
     enabled: false
 cloudwatchExporter:
   image: ""
-  assumeRoleArns: ""
+  accessRoleArns: ""
 prometheusThanosStorageBucket:
   bucketName: ""
   endpoint: "s3.eu-west-2.amazonaws.com"
   kmsKeyId: ""
 azure:
   devl:
+    subscription_id: ""
+    client_id : ""
+    client_secret: ""
+    tenant_id: ""
+  preprod:
     subscription_id: ""
     client_id : ""
     client_secret: ""

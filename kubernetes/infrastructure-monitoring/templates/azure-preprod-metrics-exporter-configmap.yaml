@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-azure-preprod-metrics-exporter-configmap
+data:
+  azure.yml: |
+    active_directory_authority_url: "https://login.microsoftonline.com/"
+    resource_manager_url: "https://management.azure.com/"
+    credentials:
+      subscription_id: "{{ .Values.azure.preprod.subscription_id }}"
+      client_id: "{{ .Values.azure.preprod.client_id }}"
+      client_secret: "{{ .Values.azure.preprod.client_secret }}"
+      tenant_id: "{{ .Values.azure.preprod.tenant_id }}"
+
+    resource_tags:
+      - resource_tag_name: "prometheus"
+        resource_tag_value: "tomonitor"
+        resource_types:
+          - "Microsoft.Compute/virtualMachines"
+        metrics:
+          - name: "CPU Credits Consumed"
+          - name: "Percentage CPU"
