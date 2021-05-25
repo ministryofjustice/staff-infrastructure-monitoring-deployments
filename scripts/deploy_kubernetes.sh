@@ -78,6 +78,10 @@ azure.devl.subscription_id=$DEVL_SUBSCRIPTION_ID,\
 azure.devl.client_id=$DEVL_CLIENT_ID,\
 azure.devl.client_secret=$DEVL_CLIENT_SECRET,\
 azure.devl.tenant_id=$DEVL_TENANT_ID,\
+azure.preprod.subscription_id=$PREPROD_SUBSCRIPTION_ID,\
+azure.preprod.client_id=$PREPROD_CLIENT_ID,\
+azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
+azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
 hosted_zone_domain=$HOSTED_ZONE_DOMAIN
 }
 
