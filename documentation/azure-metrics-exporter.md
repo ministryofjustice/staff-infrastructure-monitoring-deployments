@@ -6,6 +6,7 @@
 - [Deploy Azure metrics exporter](#deploy-azure-metrics-exporter)
   - [Prerequisites](#prerequisites)
   - [Prepare the Azure tenant](#prepare-the-azure-tenant)
+  - [Add deployment templates in this repo](add-deployment-templates-in-this-repo)
 
 ## About Azure metrics exporter
 
@@ -45,7 +46,7 @@ Before you start you should ensure that you have the following:
   - Tenant ID
   - Client Secret
 
-### Add screts in AWS Parameter Store
+### Add secrets in AWS Parameter Store
 
 :white_square_button: Log on to AWS Shared Services account and add the values of the noted items from the previous step in AWS Parameter Store as secrets. Please follow the below pattern to name the secrets:
   - `/codebuild/pttp-ci-ima-pipeline/<your_tenant_short_name>-subscription-id` for the Azure subscription ID
