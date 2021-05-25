@@ -8,6 +8,7 @@
   - [Set up AWS Vault](#set-up-aws-vault)
 - [Usage](#usage)
   - [Deploy to your namespace](#deploy-to-your-namespace)
+  - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
   - [Removing your namespace and associated resources](#removing-your-namespace-and-associated-resources)
 - [Our other repositories](#our-other-repositories)
 - [License](#license)
