@@ -23,3 +23,6 @@ spec:
         args: 
           - --store={{ .Release.Name }}-thanos-receiver:10903
           - --store={{ .Release.Name }}-thanos-store:20091
+{{ if .Values.debug  }}
+          - "--log.level=debug"
+{{ end }}

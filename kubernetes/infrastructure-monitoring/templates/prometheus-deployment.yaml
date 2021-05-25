@@ -25,7 +25,9 @@ spec:
           - "--storage.tsdb.max-block-duration=2h"
           - "--storage.tsdb.path=/var/lib/prometheus"
           - "--web.enable-lifecycle"
+{{ if .Values.debug  }}
           - "--log.level=debug"
+{{ end }}
         volumeMounts:
         - name: prometheus-data
           mountPath: "/var/lib/prometheus"

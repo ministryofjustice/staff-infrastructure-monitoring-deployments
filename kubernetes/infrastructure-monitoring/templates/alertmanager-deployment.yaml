@@ -20,6 +20,9 @@ spec:
         command: ["alertmanager"]
         args: 
           - "--config.file=/config/alertmanager.yml"
+{{ if .Values.debug  }}
+          - "--log.level=debug"
+{{ end }}
         ports:
         - containerPort: 9093
           protocol: TCP

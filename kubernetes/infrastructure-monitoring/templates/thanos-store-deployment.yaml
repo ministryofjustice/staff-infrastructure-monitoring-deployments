@@ -38,4 +38,6 @@ spec:
               }
             } 
           }"
+{{ if .Values.debug  }}
           - "--log.level=debug"
+{{ end }}
