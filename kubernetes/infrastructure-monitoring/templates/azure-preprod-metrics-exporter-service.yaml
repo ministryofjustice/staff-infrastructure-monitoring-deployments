@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-azure-preprod-metrics-exporter
 spec:
   selector:
-    app: azure-metrics-exporter
+    app: azure-preprod-metrics-exporter
   ports:
     - name: http
       protocol: TCP
