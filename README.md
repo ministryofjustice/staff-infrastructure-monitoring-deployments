@@ -10,6 +10,7 @@
   - [Deploy to your namespace](#deploy-to-your-namespace)
   - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
   - [Removing your namespace and associated resources](#removing-your-namespace-and-associated-resources)
+- [Other Documentation](#other-documentation)
 - [Our other repositories](#our-other-repositories)
 - [License](#license)
 
@@ -56,7 +57,12 @@ This will delete your namespace on the cluster and all pods/services etc. associ
 ```sh
   make remove-workspace
 ```
-### Our other repositories
+
+## Other Documentation
+
+- [Azure metrics exporter](documentation/azure-metrics-exporter.md)
+
+## Our other repositories
 
 - [IMA Platform](https://github.com/ministryofjustice/staff-infrastructure-monitoring) - to monitor MoJ infrastructure and physical devices
 - [Configuration](https://github.com/ministryofjustice/staff-infrastructure-monitoring-datasource-config) - to provision configuration for the IMA Platform
