@@ -6,7 +6,8 @@
 - [Deploy Azure metrics exporter](#deploy-azure-metrics-exporter)
   - [Prerequisites](#prerequisites)
   - [Prepare the Azure tenant](#prepare-the-azure-tenant)
-  - [Add deployment templates in this repo](add-deployment-templates-in-this-repo)
+  - [Add secrets in AWS Parameter Store](#add-secrets-in-aws-parameter-store)
+  - [Add deployment templates in this repo](#add-deployment-templates-in-this-repo)
 
 ## About Azure metrics exporter
 
