@@ -20,3 +20,6 @@ data:
         metrics:
           - name: "CPU Credits Consumed"
           - name: "Percentage CPU"
+          - name: "Inbound Flows"
+          - name: "Outbound Flows"
+          - name: "OS Disk Queue Depth"
