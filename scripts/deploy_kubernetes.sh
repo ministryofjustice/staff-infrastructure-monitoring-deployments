@@ -8,7 +8,7 @@ get_outputs() {
 }
 
 install_dependent_helm_chart() {
-  helm repo add nginx-stable https://helm.nginx.com/stable
+  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo update
 }
@@ -35,9 +35,9 @@ upgrade_auth_configmap(){
   helm upgrade --install --atomic mojo-$ENV-ima-configmap ./kubernetes/auth-configmap --set rolearn=$cluster_role_arn
 }
 
-deploy_nginx_ingress() {
+deploy_ingress_nginx() {
   printf "\nInstalling/ upgrading NGINX Ingress chart\n\n"
-  helm upgrade --install mojo-$ENV-ima-nginx-ingress nginx-stable/nginx-ingress
+  helm upgrade --install mojo-$ENV-ima-ingress-nginx ingress-nginx/ingress-nginx
 }
 
 deploy_external_dns() {
@@ -48,6 +48,7 @@ deploy_external_dns() {
   --set provider=aws \
   --set source=ingress \
   --set domainFilters[0]=$HOSTED_ZONE_DOMAIN\
+  --set domainFilters[1]=$HOSTED_ZONE_PUBLIC\
   --set policy=sync \
   --set registry=txt \
   --set interval=3m
@@ -82,7 +83,8 @@ azure.preprod.subscription_id=$PREPROD_SUBSCRIPTION_ID,\
 azure.preprod.client_id=$PREPROD_CLIENT_ID,\
 azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
 azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
-hosted_zone_domain=$HOSTED_ZONE_DOMAIN
+hosted_zone_domain=$HOSTED_ZONE_DOMAIN,\
+hosted_zone_public=$HOSTED_ZONE_PUBLIC
 }
 
 get_prometheus_endpoint() {
@@ -98,7 +100,7 @@ main(){
   install_dependent_helm_chart
   create_kubeconfig
   upgrade_auth_configmap
-  deploy_nginx_ingress
+  deploy_ingress_nginx
   deploy_external_dns
   upgrade_ima_chart
   get_prometheus_endpoint
