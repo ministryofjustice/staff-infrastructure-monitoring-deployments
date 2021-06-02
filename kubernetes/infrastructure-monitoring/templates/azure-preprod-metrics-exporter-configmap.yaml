@@ -22,4 +22,20 @@ data:
           - name: "Percentage CPU"
           - name: "Inbound Flows"
           - name: "Outbound Flows"
+          - name: "Network In Total"
+          - name: "Network Out Total"
           - name: "OS Disk Queue Depth"
+        resource_types:
+          - "Microsoft.Network/loadbalancers"
+        metrics:
+          - name: "Byte Count"
+          - name: "Health Probe Status"          
+        resource_types:
+          - "Microsoft.Network/virtualnetworkgateways"
+        metrics:
+          - name: "Tunnel Ingress Bytes"
+          - name: "Tunnel Egress Bytes"
+          - name: "Tunnel Bandwidth"
+          
+          
+
