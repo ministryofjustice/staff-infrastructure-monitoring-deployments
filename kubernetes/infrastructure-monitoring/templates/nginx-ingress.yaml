@@ -1,18 +1,18 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ .Release.Name }}-nginx-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-spec:
-  rules:
-  - host: prometheus-{{ .Release.Namespace }}.{{ .Values.hosted_zone_domain }}
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .Release.Name }}-thanos-querier
-              port:
-                number: 10902
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: {{ .Release.Name }}-nginx-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#   - host: prometheus-{{ .Release.Namespace }}.{{ .Values.hosted_zone_domain }}
+#     http:
+#       paths:
+#         - path: /
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: {{ .Release.Name }}-thanos-querier
+#               port:
+#                 number: 10902

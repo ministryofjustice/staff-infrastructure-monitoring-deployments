@@ -1,5 +1,6 @@
 environment: ""
 hosted_zone_domain: ""
+hosted_zone_public: ""
 debug: false
 prometheus:
   image: ""
