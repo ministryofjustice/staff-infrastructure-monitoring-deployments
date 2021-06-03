@@ -49,12 +49,13 @@ deploy_ingress_nginx() {
 
 deploy_external_dns() {
   printf "\nInstalling/ upgrading external DNS chart\n\n"
-  HOSTED_ZONE_DOMAIN=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
+  HOSTED_ZONE_PRIVATE=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
+  HOSTED_ZONE_PUBLIC=`aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/$ENV/hosted-zone-public | jq -r .Parameter.Value`
 
   helm upgrade --install mojo-$ENV-ima-external-dns bitnami/external-dns \
   --set provider=aws \
   --set source=ingress \
-  --set domainFilters[0]=$HOSTED_ZONE_DOMAIN\
+  --set domainFilters[0]=$HOSTED_ZONE_PRIVATE\
   --set domainFilters[1]=$HOSTED_ZONE_PUBLIC\
   --set policy=sync \
   --set registry=txt \
@@ -90,7 +91,7 @@ azure.preprod.subscription_id=$PREPROD_SUBSCRIPTION_ID,\
 azure.preprod.client_id=$PREPROD_CLIENT_ID,\
 azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
 azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
-hosted_zone_domain=$HOSTED_ZONE_DOMAIN,\
+hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
 hosted_zone_public=$HOSTED_ZONE_PUBLIC
 }
 
