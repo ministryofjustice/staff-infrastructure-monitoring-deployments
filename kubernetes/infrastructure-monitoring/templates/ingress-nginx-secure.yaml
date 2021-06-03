@@ -16,6 +16,6 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: {{ .Release.Name }}-thanos-receiver-lb
+              name: {{ .Release.Name }}-thanos-receiver
               port:
                 number: 10908
