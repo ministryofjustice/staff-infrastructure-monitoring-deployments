@@ -5,6 +5,13 @@ set -euo pipefail
 get_outputs() {
   printf "\nFetching terraform outputs for $ENV\n\n"
   outputs=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value`
+  basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
+}
+
+create_basic_auth() {
+  echo $basic_auth_content > auth
+  kubectl delete secret basic-auth --namespace $KUBERNETES_NAMESPACE --ignore-not-found
+  kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
 }
 
 install_dependent_helm_chart() {
@@ -97,6 +104,7 @@ main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
 
   get_outputs
+  create_basic_auth
   install_dependent_helm_chart
   create_kubeconfig
   upgrade_auth_configmap
