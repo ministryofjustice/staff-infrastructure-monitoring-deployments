@@ -19,3 +19,4 @@ spec:
               name: {{ .Release.Name }}-thanos-receiver
               port:
                 number: 10908
+                
