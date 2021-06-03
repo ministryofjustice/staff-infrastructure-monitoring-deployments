@@ -8,12 +8,6 @@ get_outputs() {
   basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
 }
 
-create_basic_auth() {
-  echo $basic_auth_content > auth
-  kubectl delete secret basic-auth --namespace $KUBERNETES_NAMESPACE --ignore-not-found
-  kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
-}
-
 install_dependent_helm_chart() {
   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
   helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -34,6 +28,12 @@ create_kubeconfig(){
     --region eu-west-2 update-kubeconfig --name $cluster_name --role-arn $assume_role
   chmod o-r $KUBECONFIG
   chmod g-r $KUBECONFIG
+}
+
+create_basic_auth() {
+  echo $basic_auth_content > auth
+  kubectl delete secret basic-auth --namespace $KUBERNETES_NAMESPACE --ignore-not-found
+  kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
 }
 
 upgrade_auth_configmap(){
@@ -105,9 +105,9 @@ main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
 
   get_outputs
-  create_basic_auth
   install_dependent_helm_chart
   create_kubeconfig
+  create_basic_auth
   upgrade_auth_configmap
   deploy_ingress_nginx
   deploy_external_dns
