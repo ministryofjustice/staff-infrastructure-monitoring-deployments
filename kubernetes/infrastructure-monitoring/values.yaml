@@ -2,6 +2,8 @@ environment: ""
 hosted_zone_private: ""
 hosted_zone_public: ""
 debug: false
+configmap_reload:
+  image: ""
 prometheus:
   image: ""
 thanos:
