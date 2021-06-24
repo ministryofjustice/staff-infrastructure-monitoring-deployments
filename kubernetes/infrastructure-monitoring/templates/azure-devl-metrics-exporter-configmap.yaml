@@ -13,10 +13,20 @@ data:
       tenant_id: "{{ .Values.azure.devl.tenant_id }}"
 
     resource_tags:
-      - resource_tag_name: "prometheus"
-        resource_tag_value: "tomonitor"
+      - resource_tag_name: "virtualMachinesMonitor"
+        resource_tag_value: "prometheus"
         resource_types:
           - "Microsoft.Compute/virtualMachines"
         metrics:
           - name: "CPU Credits Consumed"
           - name: "Percentage CPU"
+          - name: "Data Disk Read Bytes/Sec"
+          - name: "Disk Write Bytes"
+      - resource_tag_name: "loadBalancersMonitor"
+        resource_tag_value: "prometheus"
+        resource_types:
+          - "Microsoft.Network/loadBalancers"
+        metrics:
+          - name: "ByteCount"
+          - name: "PacketCount"
+          - name: "DipAvailability"
