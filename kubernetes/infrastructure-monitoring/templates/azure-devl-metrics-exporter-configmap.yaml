@@ -16,7 +16,35 @@ data:
       - resource_tag_name: "prometheus"
         resource_tag_value: "tomonitor"
         resource_types:
+          - "Microsoft.Automation/automationAccounts"
+        metrics:
+          - name: "TotalJob"
+        resource_types:
           - "Microsoft.Compute/virtualMachines"
         metrics:
-          - name: "CPU Credits Consumed"
           - name: "Percentage CPU"
+          - name: "Inbound Flows"
+          - name: "Outbound Flows"
+          - name: "Network In Total"
+          - name: "Network Out Total"
+          - name: "OS Disk Queue Depth"
+        resource_types:
+          - "Microsoft.EventHub/namespaces"
+        metrics:
+          - name: "QuotaExceededErrors"
+          - name: "UserErrors"
+          - name: "ServerErrors"
+          - name: "SuccessfulRequests"
+        resource_types:
+          - "Microsoft.Network/loadbalancers"
+        metrics:
+          - name: "ByteCount"
+          - name: "DipAvailability"
+          - name: "VipAvailability"
+        resource_types:
+          - "Microsoft.Network/virtualnetworkgateways"
+        metrics:
+          - name: "AverageBandwidth"
+          - name: "TunnelIngressBytes"
+          - name: "TunnelEgressBytes"
+          - name: "TunnelAverageBandwidth"
