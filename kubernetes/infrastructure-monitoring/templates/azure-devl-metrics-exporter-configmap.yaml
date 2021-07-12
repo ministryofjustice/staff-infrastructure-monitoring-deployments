@@ -13,13 +13,8 @@ data:
       tenant_id: "{{ .Values.azure.devl.tenant_id }}"
 
     resource_tags:
-<<<<<<< HEAD
       - resource_tag_name: "prometheusautomationAccounts"
         resource_tag_value: "tomonitor"
-=======
-      - resource_tag_name: "virtualMachinesMonitor"
-        resource_tag_value: "prometheus"
->>>>>>> 7baa53d38a3c393f5f905de7173ea6074e55005a
         resource_types:
           - "Microsoft.Automation/automationAccounts"
         metrics:
