@@ -77,6 +77,7 @@ upgrade_ima_chart(){
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
 environment=$ENV,\
 prometheus.image=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
+configmap_reload.image=jimmidyson/configmap-reload,\
 alertmanager.image=prom/alertmanager,\
 prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
 cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter,\
