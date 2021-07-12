@@ -29,9 +29,16 @@ spec:
         volumeMounts:
         - name: configuration
           mountPath: "/config"
-          readOnly: true
         - name: templates
           mountPath: "/templates"
+      - name: alertmanager-configmap-reload
+        image: {{ .Values.configmap_reload.image }}:latest
+        args:
+          - "--volume-dir=/config"
+          - "--webhook-url=http://127.0.0.1:9093/-/reload"
+        volumeMounts:
+        - name: configuration
+          mountPath: "/config"
           readOnly: true
       volumes:
       - name: configuration
