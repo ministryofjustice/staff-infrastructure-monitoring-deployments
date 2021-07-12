@@ -13,12 +13,14 @@ data:
       tenant_id: "{{ .Values.azure.preprod.tenant_id }}"
 
     resource_tags:
-      - resource_tag_name: "prometheus"
+      - resource_tag_name: "prometheusautomationAccounts"
         resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Automation/automationAccounts"
         metrics:
           - name: "TotalJob"
+      - resource_tag_name: "prometheusvirtualMachines"
+        resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Compute/virtualMachines"
         metrics:
@@ -28,6 +30,8 @@ data:
           - name: "Network In Total"
           - name: "Network Out Total"
           - name: "OS Disk Queue Depth"
+      - resource_tag_name: "prometheusEventHub"
+        resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.EventHub/namespaces"
         metrics:
@@ -35,12 +39,16 @@ data:
           - name: "UserErrors"
           - name: "ServerErrors"
           - name: "SuccessfulRequests"
+      - resource_tag_name: "prometheusloadbalancers"
+        resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Network/loadbalancers"
         metrics:
           - name: "ByteCount"
           - name: "DipAvailability"
           - name: "VipAvailability"
+      - resource_tag_name: "prometheusvirtualnetworkgateways"
+        resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Network/virtualnetworkgateways"
         metrics:
