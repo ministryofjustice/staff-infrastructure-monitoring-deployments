@@ -19,6 +19,11 @@ Azure metrics exporter is an unofficial exporter for [Prometheus](https://promet
 |:---------------------------|
 | A single instance of Azure metrics exporter can export metrics from only one Azure tenant. Therefore in order to start exporting metrics from a new Azure tenant, deployment of a new instance of Azure metrics exporter is required.     |
 
+
+| :exclamation: IMPORTANT          |
+|:---------------------------|
+| Resource Types are case sensitive, list [here](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported).  e.g. This will work _Microsoft.Network/virtualNetworkGateways_ , but this will NOT **Microsoft.Network/virtualnetworkgateways**.   |
+
 Please follow the guide below to deploy an Azure metrics exporter:
 
 ## Deploy Azure metrics exporter
