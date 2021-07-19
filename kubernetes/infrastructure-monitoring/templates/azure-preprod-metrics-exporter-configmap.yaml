@@ -13,10 +13,53 @@ data:
       tenant_id: "{{ .Values.azure.preprod.tenant_id }}"
 
     resource_tags:
-      - resource_tag_name: "prometheus"
+      - resource_tag_name: "prometheusautomationAccounts"
+        resource_tag_value: "tomonitor"
+        resource_types:
+          - "Microsoft.Automation/automationAccounts"
+        metrics:
+          - name: "TotalJob"
+
+      - resource_tag_name: "prometheusEventHub"
+        resource_tag_value: "tomonitor"
+        resource_types:
+          - "Microsoft.EventHub/namespaces"
+        metrics:
+          - name: QuotaExceededErrors
+          - name: SuccessfulRequests
+          - name: ServerErrors
+          - name: ThrottledRequests
+
+      - resource_tag_name: "prometheusloadbalancers"
+        resource_tag_value: "tomonitor"
+        resource_types:
+          - "Microsoft.Network/loadBalancers"
+        metrics:
+          - name: "ByteCount"
+          - name: "DipAvailability"
+          - name: "VipAvailability"
+
+      - resource_tag_name: "prometheusvirtualMachines"
         resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Compute/virtualMachines"
         metrics:
-          - name: "CPU Credits Consumed"
+          - name: "Inbound Flows"
+          - name: "Outbound Flows"
+          - name: "Network In Total"
+          - name: "Network Out Total"
+          - name: "OS Disk Queue Depth"
+          - name: "OS Disk Read Bytes/Sec"
+          - name: "OS Disk Write Bytes/Sec"
           - name: "Percentage CPU"
+
+      - resource_tag_name: "prometheusvirtualnetworkgateways"
+        resource_tag_value: "tomonitor"
+        resource_types:
+          - "Microsoft.Network/virtualNetworkGateways"
+        metrics:
+          - name: "AverageBandwidth"
+          - name: "TunnelAverageBandwidth"
+          - name: "TunnelEgressBytes"
+          - name: "TunnelIngressBytes"
+
