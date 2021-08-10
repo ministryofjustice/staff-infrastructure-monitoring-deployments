@@ -205,7 +205,10 @@ discovery:
         statistics: [Average]
         nilToZero: true
       - name: UnHealthyHostCount
-        statistics: [Average, Sum]
+        statistics: [Average, Sum, Maximum]
+        nilToZero: true
+      - name: HealthyHostCount
+        statistics: [Average, Sum, Maximum]
         nilToZero: true
 static:
 {{- include "cloudwatchMetrics.production.custom" . }}
