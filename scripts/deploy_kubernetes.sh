@@ -80,7 +80,7 @@ prometheus.image=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
 configmap_reload.image=jimmidyson/configmap-reload,\
 alertmanager.image=prom/alertmanager,\
 prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
-cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter,\
+cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter:v0.26.3-alpha,\
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
 thanos.image=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
 cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
@@ -105,15 +105,15 @@ get_prometheus_endpoint() {
 main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
 
-  get_outputs
-  install_dependent_helm_chart
-  create_kubeconfig
-  create_basic_auth
-  upgrade_auth_configmap
-  deploy_ingress_nginx
-  deploy_external_dns
-  upgrade_ima_chart
-  get_prometheus_endpoint
+   get_outputs
+   install_dependent_helm_chart
+   create_kubeconfig
+   create_basic_auth
+   upgrade_auth_configmap
+   deploy_ingress_nginx
+   deploy_external_dns
+   upgrade_ima_chart
+   get_prometheus_endpoint
 
   # Display all Pods
   printf "\nList of Pods:\n\n"

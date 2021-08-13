@@ -6,6 +6,8 @@ data:
   config.yml: |+
 {{- if eq .Values.environment "production" }}
 {{ include "cloudwatchMetrics.production" . | indent 4 }}
+{{- else if eq .Values.environment "pre-production" }}
+{{ include "cloudwatchMetrics.production" . | indent 4 }}
 {{- else }}
 {{ include "cloudwatchMetrics.default" . | indent 4 }}
 {{- end }}
