@@ -37,6 +37,9 @@ discovery:
       - name: NetworkPacketsIn
         statistics: [Average]
         nilToZero: true
+      - name: NetworkPacketsOut
+        statistics: [Average]
+        nilToZero: true
       - name: DiskReadBytes
         statistics: [Average]
         nilToZero: true
