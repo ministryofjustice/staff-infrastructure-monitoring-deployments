@@ -25,10 +25,10 @@ data:
         resource_types:
           - "Microsoft.EventHub/namespaces"
         metrics:
-          - name: QuotaExceededErrors
-          - name: SuccessfulRequests
-          - name: ServerErrors
-          - name: ThrottledRequests
+          - name: "QuotaExceededErrors"
+          - name: "SuccessfulRequests"
+          - name: "ServerErrors"
+          - name: "ThrottledRequests"
 
       - resource_tag_name: "prometheusloadbalancers"
         resource_tag_value: "tomonitor"
