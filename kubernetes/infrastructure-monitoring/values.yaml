@@ -30,3 +30,5 @@ azure:
     tenant_id: ""
 alertmanager:
   image: ""
+smtpexporter:
+  loadbalancer: ""
