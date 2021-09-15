@@ -5,6 +5,7 @@ set -euo pipefail
 get_outputs() {
   printf "\nFetching terraform outputs for $ENV\n\n"
   outputs=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value`
+  network_services_outputs=`aws ssm get-parameter --name /codebuild/pttp-ci-infrastructure-net-svcs-core-pipeline/$ENV/terraform_outputs | jq -r .Parameter.Value`
   basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
 }
 
@@ -72,6 +73,7 @@ upgrade_ima_chart(){
   prometheus_thanos_storage_bucket_name=$(echo $outputs | jq '.prometheus_thanos_storage_bucket_name.value' | sed 's/"//g')
   prometheus_thanos_storage_kms_key_id=$(echo $outputs | jq '.prometheus_thanos_storage_kms_key_id.value' | sed 's/"//g')
   cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
+  smtp_loadbalancer=$(echo $network_services_outputs | jq '.smtp_relay.monitoring_network_load_balancer.dns_name' | sed 's/"//g')
 
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
@@ -93,7 +95,8 @@ azure.preprod.client_id=$PREPROD_CLIENT_ID,\
 azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
 azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
 hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
-hosted_zone_public=$HOSTED_ZONE_PUBLIC
+hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
+smtpexporter.loadbalancer=$smtp_loadbalancer
 }
 
 get_prometheus_endpoint() {

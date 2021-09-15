@@ -37,7 +37,7 @@ data:
         honor_labels: true
         static_configs:
           - targets: ['{{ .Release.Name }}-cloudwatch-exporter:5000']
-      
+
       - job_name: azure_monitor
         honor_labels: true
         static_configs:
@@ -60,4 +60,13 @@ data:
             - monitoring-alerting.staff.service.justice.gov.uk:443
         metrics_path: /metrics
 
-    
+      - job_name: postfix
+        metrics_path: /metrics
+        honor_labels: true
+        scheme: http
+        dns_sd_configs:
+          - names: ['{{ .Values.smtpexporter.loadbalancer }}']
+            type: A
+            port: 9154
+
+# Replace above 
