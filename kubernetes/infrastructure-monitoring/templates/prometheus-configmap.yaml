@@ -68,5 +68,3 @@ data:
           - names: ['{{ .Values.smtpexporter.loadbalancer }}']
             type: A
             port: 9154
-
-# Replace above 
