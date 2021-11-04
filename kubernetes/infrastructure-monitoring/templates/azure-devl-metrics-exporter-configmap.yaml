@@ -20,16 +20,6 @@ data:
         metrics:
           - name: "TotalJob"
 
-      - resource_tag_name: "prometheusEventHub"
-        resource_tag_value: "tomonitor"
-        resource_types:
-          - "Microsoft.EventHub/namespaces"
-        metrics:
-          - name: "QuotaExceededErrors"
-          - name: "SuccessfulRequests"
-          - name: "ServerErrors"
-          - name: "ThrottledRequests"
-
       - resource_tag_name: "prometheusloadbalancers"
         resource_tag_value: "tomonitor"
         resource_types:
@@ -38,12 +28,15 @@ data:
           - name: "ByteCount"
           - name: "DipAvailability"
           - name: "VipAvailability"
+          - name: "SnatConnectionCount"
+          - name: "SYNCount"
 
       - resource_tag_name: "prometheusvirtualMachines"
         resource_tag_value: "tomonitor"
         resource_types:
           - "Microsoft.Compute/virtualMachines"
         metrics:
+          - name: "Available Memory Bytes"
           - name: "Inbound Flows"
           - name: "Outbound Flows"
           - name: "Network In Total"
