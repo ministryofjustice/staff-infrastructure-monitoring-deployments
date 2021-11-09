@@ -32,3 +32,5 @@ alertmanager:
   image: ""
 smtpexporter:
   loadbalancer: ""
+blackboxexporter:
+  loadbalancer: ""
