@@ -40,7 +40,7 @@ This will deploy prometheus, thanos, cloudwatch & azure metrics exporters to the
 2. Create a `.env` file.
 
 ```sh
-cd `.env.example` `.env`
+cp `.env.example` `.env`
 ```
 3. Modify the `.env` file and replace all necessary values. `KUBERNETES_NAMESPACE` should match the namespace name you used in the [configuration repository](https://github.com/ministryofjustice/staff-infrastructure-monitoring-datasource-config).
 4. Deploy the charts in this repo by running
