@@ -5,8 +5,8 @@ metadata:
 data:
   prometheus.yml: |
     global:
-      scrape_timeout:      60s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
-      scrape_interval:     180s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
+      scrape_timeout:      10s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
+      scrape_interval:     30s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
       evaluation_interval: 60s # Evaluate rules every 60 seconds. The default is every 1 minute.
       external_labels:
         environment: production
@@ -68,3 +68,51 @@ data:
           - names: ['{{ .Values.smtpexporter.loadbalancer }}']
             type: A
             port: 9154
+    
+      - job_name: 'blackbox-http-pki'
+        scrape_interval: 300s
+        metrics_path: /probe
+        params:
+          module: [http_get_pki] # Look for a HTTP post
+        static_configs:
+          - targets:
+            - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps
+            - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+
+      - job_name: 'blackbox-http'
+        metrics_path: /probe
+        params:
+          module: [http_2xx] # Look for a HTTP 200 response
+        static_configs:
+          - targets:
+            # Staff Service URLs
+            - https://dhcp-dns-admin.staff.service.justice.gov.uk
+            - https://dhcp-dns-admin.dev.staff.service.justice.gov.uk
+            - https://dhcp-dns-admin.prep.staff.service.justice.gov.uk
+            - https://monitoring-alerting.staff.service.justice.gov.uk
+            - https://monitoring-alerting.dev.staff.service.justice.gov.uk
+            - https://monitoring-alerting.prep.staff.service.justice.gov.uk
+            # PSN Service URLs
+            - https://intranet.noms.gsi.gov.uk/
+            - https://www.ppud.gsi.gov.uk/
+            # MoJ Service URLs
+            - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps #MoJO PKI prep
+            - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps #MoJO PKI prod
+            # MoJ Global Protect
+            - https://portal.vpn.justice.gov.uk #Production
+            - https://portal.prep.vpn.justice.gov.uk #Prep
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'   
+
