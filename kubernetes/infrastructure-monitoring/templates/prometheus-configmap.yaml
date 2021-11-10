@@ -5,8 +5,8 @@ metadata:
 data:
   prometheus.yml: |
     global:
-      scrape_timeout:      10s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
-      scrape_interval:     30s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
+      scrape_timeout:      60s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
+      scrape_interval:     180s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
       evaluation_interval: 60s # Evaluate rules every 60 seconds. The default is every 1 minute.
       external_labels:
         environment: production
@@ -114,5 +114,48 @@ data:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'   
+            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+
+      - job_name: blackbox-ping-ark
+        metrics_path: /probe
+        params:
+          module: [icmp]
+        static_configs:
+          - targets:
+            # Corsham
+            - 172.16.181.1 # MoJ-ARKC-FW02_A (Gateway)
+            - 172.16.181.5 # MOJ-ARKC-SCON01
+            - 172.16.181.6 # MOJ-ARKC-SW03
+            - 172.16.181.7 # MoJ-ARKC-FW02_A
+            - 172.16.181.8 # MoJ-ARKC-FW02_B
+            - 172.16.181.10 # MoJ-ARKC-FW01_A
+            - 172.16.181.11 # MoJ-ARKC-FW01_B
+            - 172.16.181.20 # MOJ-ARKC-SW01
+            - 172.16.181.30 # MOJ-ARKC-SW02
+            - 172.16.181.201 # MoJ-ARKC-ESX01
+            - 172.16.181.202 # MoJ-ARKC-ESX02
+
+            # Farnborough
+            - 172.16.182.1 # MoJ-ARKC-FW02_A (Gateway)
+            - 172.16.182.5 # MOJ-ARKC-SCON01
+            - 172.16.182.6 # MOJ-ARKC-SW03
+            - 172.16.182.7 # MoJ-ARKC-FW02_A
+            - 172.16.182.8 # MoJ-ARKC-FW02_B
+            - 172.16.182.10 # MoJ-ARKC-FW01_A
+            - 172.16.182.11 # MoJ-ARKC-FW01_B
+            - 172.16.182.20 # MOJ-ARKC-SW01
+            - 172.16.182.30 # MOJ-ARKC-SW02
+            - 172.16.182.201 # MoJ-ARKC-ESX01
+            - 172.16.182.202 # MoJ-ARKC-ESX02
+            # External DNS
+            - 1.1.1.1 # Cloudflare
+            - 25.25.25.25 # NCSC PDNS
+            - 25.26.27.28 # NCSC PDNS
+        relabel_configs:    # <== This comes from the blackbox exporter README
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
 
