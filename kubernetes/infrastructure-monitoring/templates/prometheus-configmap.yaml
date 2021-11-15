@@ -28,7 +28,7 @@ data:
 
     scrape_configs:
 
-    {{- if eq .Values.environment "development" }}
+    {{- if eq .Values.environment "production" }}
     {{ include "snmpexporterjobs.production" . | indent 4 }}
     {{- end }}
 
