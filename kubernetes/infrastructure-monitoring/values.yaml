@@ -34,6 +34,8 @@ smtpexporter:
   loadbalancer: ""
 blackboxexporter:
   loadbalancer: ""
+snmpexporter:
+  loadbalancer: ""
 network_address:
   corsham: ""
   farnborough: ""
