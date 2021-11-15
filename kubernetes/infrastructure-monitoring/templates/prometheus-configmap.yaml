@@ -27,11 +27,6 @@ data:
     - "/alerts/alertRules.yml"
 
     scrape_configs:
-
-    {{- if eq .Values.environment "production" }}
-    {{ include "snmpexporterjobs.production" . | indent 4 }}
-    {{- end }}
-
       - job_name: prometheus
         honor_labels: true
         static_configs:
@@ -58,14 +53,14 @@ data:
             - raw.githubusercontent.com:443
         metrics_path: /ministryofjustice/staff-device-docker-base-images/main/prometheus_metrics/docker_image_versions.txt
 
-        - job_name: postfix
-          metrics_path: /metrics
-          honor_labels: true
-          scheme: http
-          dns_sd_configs:
-            - names: ['{{ .Values.smtpexporter.loadbalancer }}']
-              type: A
-              port: 9154
+      - job_name: postfix
+        metrics_path: /metrics
+        honor_labels: true
+        scheme: http
+        dns_sd_configs:
+          - names: ['{{ .Values.smtpexporter.loadbalancer }}']
+            type: A
+            port: 9154
             
       - job_name: 'blackbox-http-pki'
         scrape_interval: 300s
@@ -157,3 +152,7 @@ data:
             target_label: instance
           - target_label: __address__
             replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+
+{{- if eq .Values.environment "production" }}
+{{ include "snmpexporterjobs.production" . | indent 6 }}
+{{- end }}

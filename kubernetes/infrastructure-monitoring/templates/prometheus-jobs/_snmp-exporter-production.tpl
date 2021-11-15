@@ -1,21 +1,20 @@
 {{ define "snmpexporterjobs.production" }}
-
 - job_name: raritan_corsh
-      honor_labels: true
-      static_configs:
-        - targets:
-          # Corsham
-          - {{ .Values.network_address.corsham }}.5 # MOJ-ARKC-SCON01
-      metrics_path: /snmp
-      params:
-        module: [raritan_corsh]
-      relabel_configs:
-        - source_labels: [__address__]
-          target_label: __param_target
-        - source_labels: [__param_target]
-          target_label: instance
-        - target_label: __address__
-          replacement: '{{ .Values.snmpexporter.loadbalancer }}:9116' # SNMP exporter's hostname:port
+  honor_labels: true
+  static_configs:
+    - targets:
+      # Corsham
+      - {{ .Values.network_address.corsham }}.5 # MOJ-ARKC-SCON01
+  metrics_path: /snmp
+  params:
+    module: [raritan_corsh]
+  relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: '{{ .Values.snmpexporter.loadbalancer }}:9116' # SNMP exporter's hostname:port
 
 - job_name: juniper_corsh
   honor_labels: true
@@ -143,5 +142,4 @@
       target_label: instance
     - target_label: __address__
       replacement: '{{ .Values.snmpexporter.loadbalancer }}:9116' # SNMP exporter's hostname:port
-
 {{ end }}
