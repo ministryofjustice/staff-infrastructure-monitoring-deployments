@@ -57,7 +57,16 @@ data:
           - targets:
             - raw.githubusercontent.com:443
         metrics_path: /ministryofjustice/staff-device-docker-base-images/main/prometheus_metrics/docker_image_versions.txt
-    
+
+        - job_name: postfix
+          metrics_path: /metrics
+          honor_labels: true
+          scheme: http
+          dns_sd_configs:
+            - names: ['{{ .Values.smtpexporter.loadbalancer }}']
+              type: A
+              port: 9154
+            
       - job_name: 'blackbox-http-pki'
         scrape_interval: 300s
         metrics_path: /probe
@@ -148,4 +157,3 @@ data:
             target_label: instance
           - target_label: __address__
             replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
-
