@@ -7,6 +7,8 @@ get_outputs() {
   outputs=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value`
   network_services_outputs=`aws ssm get-parameter --name /codebuild/pttp-ci-infrastructure-net-svcs-core-pipeline/$ENV/terraform_outputs | jq -r .Parameter.Value`
   basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
+  corsham_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/corsham-network-address | jq -r .Parameter.Value`
+  farnborough_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/farnborough-network-address | jq -r .Parameter.Value`
 }
 
 install_dependent_helm_chart() {
@@ -98,6 +100,8 @@ azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
 hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
 hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
 smtpexporter.loadbalancer=$smtp_loadbalancer,\
+network_address.corsham=$corsham_network_address,\
+network_address.farnborough=$farnborough_network_address,\
 blackboxexporter.loadbalancer=$blackbox_loadbalancer
 }
 
@@ -110,15 +114,15 @@ get_prometheus_endpoint() {
 main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
 
-   get_outputs
-   install_dependent_helm_chart
-   create_kubeconfig
-   create_basic_auth
-   upgrade_auth_configmap
-   deploy_ingress_nginx
-   deploy_external_dns
-   upgrade_ima_chart
-   get_prometheus_endpoint
+    get_outputs
+    install_dependent_helm_chart
+    create_kubeconfig
+    create_basic_auth
+    upgrade_auth_configmap
+    deploy_ingress_nginx
+    deploy_external_dns
+    upgrade_ima_chart
+    get_prometheus_endpoint
 
   # Display all Pods
   printf "\nList of Pods:\n\n"
