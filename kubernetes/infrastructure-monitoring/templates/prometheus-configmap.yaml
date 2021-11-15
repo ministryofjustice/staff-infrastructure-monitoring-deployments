@@ -3,7 +3,8 @@ kind: ConfigMap
 metadata:
   name: prometheus-configmap
 data:
-  prometheus.yml: |
+  prometheus.yml: |+
+
     global:
       scrape_timeout:      60s # Set the scrape interval to every 30 seconds. Default is every 10 secs.
       scrape_interval:     180s # Set the scrape interval to every 60 seconds. Default is every 1 minute.
@@ -26,6 +27,11 @@ data:
     - "/alerts/alertRules.yml"
 
     scrape_configs:
+
+    {{- if eq .Values.environment "development" }}
+    {{ include "snmpexporterjobs.production" . | indent 4 }}
+    {{- end }}
+
       - job_name: prometheus
         honor_labels: true
         static_configs:
@@ -51,15 +57,6 @@ data:
           - targets:
             - raw.githubusercontent.com:443
         metrics_path: /ministryofjustice/staff-device-docker-base-images/main/prometheus_metrics/docker_image_versions.txt
-
-      - job_name: postfix
-        metrics_path: /metrics
-        honor_labels: true
-        scheme: http
-        dns_sd_configs:
-          - names: ['{{ .Values.smtpexporter.loadbalancer }}']
-            type: A
-            port: 9154
     
       - job_name: 'blackbox-http-pki'
         scrape_interval: 300s

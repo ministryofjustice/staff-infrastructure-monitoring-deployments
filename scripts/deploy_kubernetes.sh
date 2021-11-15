@@ -77,6 +77,7 @@ upgrade_ima_chart(){
   cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
   smtp_loadbalancer=$(echo $network_services_outputs | jq '.smtp_relay.monitoring_network_load_balancer.dns_name' | sed 's/"//g')
   blackbox_loadbalancer=$(echo $outputs | jq '.blackbox_exporter_hostname_v2.value' | sed 's/"//g' )
+  snmp_loadbalancer=$(echo $outputs | jq '.snmp_exporter_hostname_v2.value' | sed 's/"//g' )
 
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
@@ -102,7 +103,8 @@ hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
 smtpexporter.loadbalancer=$smtp_loadbalancer,\
 network_address.corsham=$corsham_network_address,\
 network_address.farnborough=$farnborough_network_address,\
-blackboxexporter.loadbalancer=$blackbox_loadbalancer
+blackboxexporter.loadbalancer=$blackbox_loadbalancer,\
+snmpexporter.loadbalancer=$snmp_loadbalancer
 }
 
 get_prometheus_endpoint() {
