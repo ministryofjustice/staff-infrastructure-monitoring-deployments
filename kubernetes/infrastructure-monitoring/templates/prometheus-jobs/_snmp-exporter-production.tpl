@@ -144,12 +144,4 @@
     - target_label: __address__
       replacement: '{{ .Values.snmpexporter.loadbalancer }}:9116' # SNMP exporter's hostname:port
 
-- job_name: postfix
-  metrics_path: /metrics
-  honor_labels: true
-  scheme: http
-  dns_sd_configs:
-    - names: ['{{ .Values.smtpexporter.loadbalancer }}']
-      type: A
-      port: 9154
 {{ end }}
