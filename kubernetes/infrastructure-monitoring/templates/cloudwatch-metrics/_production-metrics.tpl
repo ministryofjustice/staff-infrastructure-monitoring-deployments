@@ -156,8 +156,8 @@ discovery:
     roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
     length: 300
     metrics:
-      - name: GetRecords
-        statistics: [IteratorAge, Sum]
+      - name: GetRecords.IteratorAge
+        statistics: [Sum]
         nilToZero: true
       - name: IncomingRecords
         statistics: [Sum]
