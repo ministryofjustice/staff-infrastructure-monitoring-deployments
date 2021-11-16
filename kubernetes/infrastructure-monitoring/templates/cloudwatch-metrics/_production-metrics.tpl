@@ -157,7 +157,7 @@ discovery:
     length: 300
     metrics:
       - name: GetRecords
-        statistics: [teratorAgeMilliseconds, Sum]
+        statistics: [IteratorAgeMilliseconds, Sum]
         nilToZero: true
       - name: IncomingRecords
         statistics: [Sum]
