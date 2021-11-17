@@ -11,39 +11,64 @@ discovery:
       - BucketName
       - StorageType
   jobs:
-    - regions: [eu-west-2]
-      roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-      type: AWS/EC2
-      length: 300
-      metrics:
-        - name: CPUUtilization
-          statistics: [Average]
-          nilToZero: true
-    - regions: [eu-west-2]
-      roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-      type: AWS/ECS
-      length: 300
-      metrics:
-        - name: CPUUtilization
-          statistics: [Average, Minimum, Maximum]
-          nilToZero: true
-        - name: MemoryUtilization
-          statistics: [Average]
-          nilToZero: true
-    - regions: [eu-west-2]
-      roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-      type: AWS/RDS
-      length: 300
-      metrics:
-        - name: FreeStorageSpace
-          statistics: [Average]
-          nilToZero: true
-    - regions: [eu-west-2]
-      roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
-      type: AWS/S3
-      length: 300
-      metrics:
-        - name: BucketSizeBytes
-          statistics: [Average]
-          nilToZero: true
+  - type: AWS/EC2
+    regions:
+      - eu-west-2
+    roles:
+      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
+    metrics:
+      - name: CPUUtilization
+        statistics:
+          - Average
+        nilToZero: true
+        period: 600
+        length: 300
+  - type: AWS/ECS
+    regions:
+      - eu-west-2
+    roles:
+      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
+    metrics:
+      - name: CPUUtilization
+        statistics:
+          - Average
+          - Minimum
+          - Maximum
+        nilToZero: true
+        period: 600
+        length: 300
+      - name: MemoryUtilization
+        statistics: 
+          - Average
+          - Minimum
+          - Maximum
+        nilToZero: true
+        period: 600
+        length: 300
+  - type: AWS/RDS
+    regions:
+      - eu-west-2
+    roles:
+      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
+    metrics:
+      - name: FreeStorageSpace
+        statistics:
+          - Average
+          - Minimum
+          - Maximum
+        nilToZero: true
+        period: 600
+        length: 300
+  - type: AWS/S3
+    regions:
+      - eu-west-2
+    roles:
+      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
+    metrics:
+      - name: BucketSizeBytes
+        statistics:
+          - Average
+        nilToZero: true
+        period: 600
+        length: 300
 {{ end }}
