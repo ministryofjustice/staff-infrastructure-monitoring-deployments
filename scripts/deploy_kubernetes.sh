@@ -9,6 +9,7 @@ get_outputs() {
   basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
   corsham_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/corsham-network-address | jq -r .Parameter.Value`
   farnborough_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/farnborough-network-address | jq -r .Parameter.Value`
+  cloudwatch_exporter_access_role_arns=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/cloudwatch_exporter_access_role_arns | jq -r .Parameter.Value'`
 }
 
 install_dependent_helm_chart() {
@@ -34,6 +35,7 @@ create_kubeconfig(){
 }
 
 create_basic_auth() {
+  printf "\nCreating basic-auth secret\n\n"
   echo $basic_auth_content > auth
   kubectl delete secret basic-auth --namespace $KUBERNETES_NAMESPACE --ignore-not-found
   kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
@@ -65,16 +67,10 @@ deploy_external_dns() {
   --set interval=3m
 }
 
-get_cloudwatch_exporter_role_arns(){
-  role_arn=`echo $outputs | jq -r .Parameter.Value | jq .cloudwatch_exporter_access_role_arns.value | sed 's/"//g'` || role_arn=""
-  echo $role_arn
-}
-
 upgrade_ima_chart(){
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
   prometheus_thanos_storage_bucket_name=$(echo $outputs | jq '.prometheus_thanos_storage_bucket_name.value' | sed 's/"//g')
   prometheus_thanos_storage_kms_key_id=$(echo $outputs | jq '.prometheus_thanos_storage_kms_key_id.value' | sed 's/"//g')
-  cloudwatch_exporter_access_role_arns=$(get_cloudwatch_exporter_role_arns | sed 's/,/\\,/g')
   smtp_loadbalancer=$(echo $network_services_outputs | jq '.smtp_relay.monitoring_network_load_balancer.dns_name' | sed 's/"//g')
   blackbox_loadbalancer=$(echo $outputs | jq '.blackbox_exporter_hostname_v2.value' | sed 's/"//g' )
   snmp_loadbalancer=$(echo $outputs | jq '.snmp_exporter_hostname_v2.value' | sed 's/"//g' )
@@ -89,7 +85,7 @@ prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,
 cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter:v0.26.3-alpha,\
 prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
 thanos.image=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
-cloudwatchExporter.accessRoleArns=$cloudwatch_exporter_access_role_arns,\
+cloudwatchExporter.accessRoleArns=$(echo $cloudwatch_exporter_access_role_arns | sed 's/,/\\,/g'),\
 azure.devl.subscription_id=$DEVL_SUBSCRIPTION_ID,\
 azure.devl.client_id=$DEVL_CLIENT_ID,\
 azure.devl.client_secret=$DEVL_CLIENT_SECRET,\
@@ -114,6 +110,7 @@ get_prometheus_endpoint() {
 }
 
 main(){
+  export AWS_PROFILE=mojo-shared-services-cli
   export KUBECONFIG="./kubernetes/kubeconfig"
 
     get_outputs
