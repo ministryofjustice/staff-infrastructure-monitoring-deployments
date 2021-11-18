@@ -14,8 +14,6 @@ discovery:
   - type: AWS/EC2
     regions:
       - eu-west-2
-    roles:
-      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
     metrics:
       - name: CPUUtilization
         statistics:
@@ -26,8 +24,6 @@ discovery:
   - type: AWS/ECS
     regions:
       - eu-west-2
-    roles:
-      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
     metrics:
       - name: CPUUtilization
         statistics:
@@ -48,8 +44,6 @@ discovery:
   - type: AWS/RDS
     regions:
       - eu-west-2
-    roles:
-      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
     metrics:
       - name: FreeStorageSpace
         statistics:
@@ -62,8 +56,6 @@ discovery:
   - type: AWS/S3
     regions:
       - eu-west-2
-    roles:
-      - roleArn: "arn:aws:iam::068084030754:role/mojo-development-ima-cloudwatch-exporter-prod-assume-role"
     metrics:
       - name: BucketSizeBytes
         statistics:
