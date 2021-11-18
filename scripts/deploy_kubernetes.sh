@@ -110,7 +110,6 @@ get_prometheus_endpoint() {
 }
 
 main(){
-  export AWS_PROFILE=mojo-shared-services-cli
   export KUBECONFIG="./kubernetes/kubeconfig"
 
     get_outputs
