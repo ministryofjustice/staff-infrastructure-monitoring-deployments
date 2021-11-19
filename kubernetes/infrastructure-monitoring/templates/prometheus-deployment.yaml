@@ -48,6 +48,9 @@ spec:
         - name: alert-rules
           mountPath: "/alerts"
           readOnly: true
+        - name: file-sd-certificates
+          mountPath: "/targets"
+          readOnly: true
       volumes:
       - name: prometheus-data
       - name: alert-rules
@@ -62,3 +65,9 @@ spec:
           items:
           - key: "prometheus.yml"
             path: "prometheus.yml"
+      - name: file-sd-certificates
+        configMap:
+          name: prometheus-file-sd-certificate-configmap
+          items:
+          - key: "certificates.yml"
+            path: "certificates.yml"
