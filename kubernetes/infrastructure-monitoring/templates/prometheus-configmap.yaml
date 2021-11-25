@@ -85,7 +85,7 @@ data:
           module: [http_2xx] # Look for a HTTP 200 response
         file_sd_configs:
           - files:
-            - '/targets/certificates.yml'
+            - '/etc/prometheus/targets/file-sd-targets.yml'
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target

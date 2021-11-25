@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prometheus-file-sd-certificate-configmap
+  name: prometheus-file-sd-configmap
 data: 
-  certificates.yml: |+
+  file-sd-targets.yml: |+
 
       - targets:
         - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps
