@@ -100,8 +100,8 @@ data:
             - https://portal.prep.vpn.justice.gov.uk #Prep
             - https://alpha-fw.vpn.justice.gov.uk/ #Alpha VPN
             # PSN Service URLs
-            - https://intranet.noms.gsi.gov.uk/ there is no routing via PSN so removing
-            - https://www.ppud.gsi.gov.uk/ there is no routing via PSN so removing
+            - https://intranet.noms.gsi.gov.uk/ # There is no routing via PSN so removing
+            - https://www.ppud.gsi.gov.uk/ # There is no routing via PSN so removing
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
