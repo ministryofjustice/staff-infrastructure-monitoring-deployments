@@ -8,19 +8,14 @@ data:
       - targets:
         - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps
         labels:
-             is-production: true
-             application: certificate-services
-             business-unit: HQ
-             owner: cloud-ops
-             environment-name: production
-             monitor: true
-              
+              application: certificate-services
+              owner: cloud-ops
+              environment: production
+              monitor: true
       - targets:
         - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps
-         labels:
-               is-production: false
-               application: certificate-services
-               business-unit: HQ
-               owner: cloud-ops
-               environment-name: pre-production
-               monitor: true
+        labels:
+              application: certificate-services
+              owner: cloud-ops
+              environment: pre-production
+              monitor: true
