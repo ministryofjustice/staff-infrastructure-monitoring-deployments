@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-file-sd-configmap
+data: 
+  file-sd-targets.yml: |+
+
+      - targets:
+        - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps
+        labels:
+              application: certificate-services
+              owner: cloud-ops
+              environment: production
+              monitor: true
+      - targets:
+        - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps
+        labels:
+              application: certificate-services
+              owner: cloud-ops
+              environment: pre-production
+              monitor: true
