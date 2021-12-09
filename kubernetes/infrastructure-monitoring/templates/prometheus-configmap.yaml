@@ -61,7 +61,7 @@ data:
           - names: ['{{ .Values.smtpexporter.loadbalancer }}']
             type: A
             port: 9154
-
+            
       - job_name: 'blackbox-http-pki'
         scrape_interval: 300s
         metrics_path: /probe
@@ -71,21 +71,6 @@ data:
           - targets:
             - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps
             - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: __param_target
-          - source_labels: [__param_target]
-            target_label: instance
-          - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
-
-      - job_name: 'certificate-check'
-        metrics_path: /probe
-        params:
-          module: [http_2xx] # Look for a HTTP 200 response
-        file_sd_configs:
-          - files:
-            - '/etc/prometheus/targets/file-sd-targets.yml'
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
