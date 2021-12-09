@@ -35,15 +35,11 @@ spec:
           mountPath: "/alerts"
         - name: configuration
           mountPath: "/etc/prometheus"
-        - name: file-sd-targets
-          mountPath: "/etc/prometheus/targets"
-
       - name: prometheus-configmap-reload
         image: {{ .Values.configmap_reload.image }}:latest
         args:
           - "--volume-dir=/etc/prometheus"
           - "--volume-dir=/alerts"
-          - "--volume-dir=/etc/prometheus/targets"
           - "--webhook-url=http://127.0.0.1:9090/-/reload"
         volumeMounts:
         - name: configuration
@@ -51,9 +47,6 @@ spec:
           readOnly: true
         - name: alert-rules
           mountPath: "/alerts"
-          readOnly: true
-        - name: file-sd-targets
-          mountPath: "/etc/prometheus/targets"
           readOnly: true
       volumes:
       - name: prometheus-data
@@ -69,9 +62,3 @@ spec:
           items:
           - key: "prometheus.yml"
             path: "prometheus.yml"
-      - name: file-sd-targets
-        configMap:
-          name: prometheus-file-sd-configmap
-          items:
-          - key: "file-sd-targets.yml"
-            path: "file-sd-targets.yml"
