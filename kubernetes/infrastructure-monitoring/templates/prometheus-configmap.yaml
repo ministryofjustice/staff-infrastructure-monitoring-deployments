@@ -107,9 +107,6 @@ data:
             - https://monitoring-alerting.staff.service.justice.gov.uk
             - https://monitoring-alerting.dev.staff.service.justice.gov.uk
             - https://monitoring-alerting.prep.staff.service.justice.gov.uk
-            # MoJ Service URLs
-            - https://enrolment.certificates.prep.staff.service.justice.gov.uk/csrscep/a0361_user/pkiclient.exe?operation=GetCACaps #MoJO PKI prep
-            - https://enrolment.certificates.staff.service.justice.gov.uk/csrscep/b0361_user/pkiclient.exe?operation=GetCACaps #MoJO PKI prod
             # MoJ Global Protect
             - https://portal.vpn.justice.gov.uk #Production
             - https://portal.prep.vpn.justice.gov.uk #Prep
