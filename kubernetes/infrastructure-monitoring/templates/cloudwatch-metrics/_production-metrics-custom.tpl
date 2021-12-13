@@ -164,7 +164,9 @@
   regions: [eu-west-2]
   dimensions:
   - name: Server
-    value: primary
+    value: 
+    - primary
+    - standby
   metrics:
   - name: pkt4-offer-sent
     statistics: [Average, Sum]
