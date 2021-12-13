@@ -164,7 +164,7 @@
   regions: [eu-west-2]
   dimensions:
   - name: Server
-    value: .*
+    value: *
   metrics:
   - name: pkt4-offer-sent
     statistics: [Average, Sum]
