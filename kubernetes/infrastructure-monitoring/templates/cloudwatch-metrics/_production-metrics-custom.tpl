@@ -165,8 +165,6 @@
   dimensions:
   - name: Server
     value: primary
-  - name: Server
-    value: standby
   metrics:
   - name: pkt4-offer-sent
     statistics: [Average, Sum]
