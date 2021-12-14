@@ -325,4 +325,43 @@
     nilToZero: true
     period: 300
     length: 300
+- namespace: mojo-production-nac-requests
+  name: "mojo-production-nac-requests"
+  regions: [eu-west-2]
+  metrics:
+  - name: Error
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Login OK"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Login incorrect"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Shared secret is incorrect"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error Ignoring request"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error python"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error post_auth - Failed to find attribute"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
 {{ end }}
