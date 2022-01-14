@@ -9,6 +9,7 @@
 - [Usage](#usage)
   - [Deploy to your namespace](#deploy-to-your-namespace)
   - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
+  - [Cloudwatch metrics Exporter](documentation/cloudwatch-exporter.md)
   - [Removing your namespace and associated resources](#removing-your-namespace-and-associated-resources)
 - [Other Documentation](#other-documentation)
 - [Our other repositories](#our-other-repositories)
