@@ -27,8 +27,12 @@ Before you start you should ensure that you have installed the following:
 - [helm](https://helm.sh/docs/intro/install/) - to manage kubernetes deployments
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) - to manage kubernetes resources
 
-### Set up AWS Vault
-To set up AWS Vault follow the instructions [here.](https://github.com/ministryofjustice/staff-infrastructure-monitoring#1-set-up-aws-vault)
+| :bangbang: IMPORTANT |  
+|:-----|  
+| If you are a MoJ AWS SSO user, it is highly recommended that you follow the CloudOps best practices provided [step-by-step guide](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault) to configure your AWS Vault with AWS SSO. | 
+
+### Set up your AWS Vault with SSO
+To set up AWS Vault follow the instructions [here.](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault)
 
 ## Usage
 
