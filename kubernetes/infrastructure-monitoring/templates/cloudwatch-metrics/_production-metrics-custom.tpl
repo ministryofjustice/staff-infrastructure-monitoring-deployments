@@ -349,7 +349,7 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "Error Ignoring request"
+  - name: "Ignoring request"
     statistics: [Sum]
     nilToZero: true
     period: 300
