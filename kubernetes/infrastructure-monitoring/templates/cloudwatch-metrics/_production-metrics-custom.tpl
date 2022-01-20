@@ -325,8 +325,8 @@
     nilToZero: true
     period: 300
     length: 300
-- namespace: mojo-production-nac-requests
-  name: "mojo-production-nac-requests"
+- namespace: mojo-nac-requests
+  name: "mojo-nac-requests"
   regions: [eu-west-2]
   metrics:
   - name: Error
