@@ -2,6 +2,7 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -16,6 +17,7 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -30,6 +32,7 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -44,6 +47,7 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dns-cluster
@@ -58,6 +62,7 @@
 - namespace: DNS-Bind-Server
   name: "DNS Bind Server"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   metrics:
   - name: CookieIn
     statistics: [Average, Maximum, Minimum]
@@ -162,6 +167,7 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   dimensions:
   - name: Server
     value: primary
@@ -224,6 +230,7 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   metrics:
   - name: STANDBY_WARN
     statistics: [Average, Sum]
@@ -328,6 +335,7 @@
 - namespace: mojo-nac-requests
   name: "mojo-nac-requests"
   regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   metrics:
   - name: Error
     statistics: [Sum]
