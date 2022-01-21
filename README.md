@@ -7,6 +7,7 @@
   - [Prerequisites](#prerequisites)
   - [Set up AWS Vault](#set-up-aws-vault)
 - [Usage](#usage)
+  - [Accessing the cluster](#accessing-the-cluster)
   - [Deploy to your namespace](#deploy-to-your-namespace)
   - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
   - [Cloudwatch metrics Exporter](documentation/cloudwatch-exporter.md)
@@ -36,6 +37,36 @@ Before you start you should ensure that you have installed the following:
 To set up AWS Vault follow the instructions [here.](https://ministryofjustice.github.io/cloud-operations/documentation/team-guide/best-practices/use-aws-sso.html#re-configure-aws-vault)
 
 ## Usage
+
+### Accessing the cluster
+
+| :bangbang: IMPORTANT |  
+|:-----|  
+| Only access the cluster directly when absolutely necessary, changes should always be applied by committing to this repo, if you make changes using `kubectl` they will be overwritten when the pipeline runs. Please pair when possible if working with the cluster directly. | 
+
+In order to run `kubectl` commands against the cluster you will need to do the following:
+
+1. Ensure your AWS vault is setup and using the `shared-services-cli` profile.
+
+2. Create a `.env` file.
+
+```sh
+cp `.env.example` `.env`
+```
+
+3. Populate the `.env` and the `KUBERNETES_NAMESPACE` fields with the environment you wish to connect to e.g
+```
+ENV=development
+KUBERNETES_NAMESPACE=development
+```
+4. Run `make deploy`
+
+5. Depending on your setup, you may have to manually copy your kubeconfig by using this command 
+```sh
+cp ./kubernetes/kubeconfig ~/.kube/config
+```
+
+6. Test by running `kubectl get pods`
 
 ### Deploy to your namespace
 This will deploy prometheus, thanos, cloudwatch & azure metrics exporters to the development EKS cluster in a dedicated namespace.
