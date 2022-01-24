@@ -83,7 +83,6 @@ data:
         metrics_path: /probe
         params:
           module: [http_2xx] # Look for a HTTP 200 response
-        scrape_timeout: 15s # increased default of 10s due to processing time on intranet.noms.gov.uk
         static_configs:
           - targets:
             # Staff Service URLs
