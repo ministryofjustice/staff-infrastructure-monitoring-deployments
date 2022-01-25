@@ -357,17 +357,17 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "Error: post_auth - Failed to find attribute"
+  - name: "Error post_auth - Failed to find attribute"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "Error: python"
+  - name: "Error python"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "Error:"
+  - name: "Error"
     statistics: [Sum]
     nilToZero: true
     period: 300
@@ -377,12 +377,12 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "write:fatal:unknown CA"
+  - name: "writefatalunknown CA"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "authorized_macs: users: Matched entry"
+  - name: "authorized_macs users Matched entry"
     statistics: [Sum]
     nilToZero: true
     period: 300
