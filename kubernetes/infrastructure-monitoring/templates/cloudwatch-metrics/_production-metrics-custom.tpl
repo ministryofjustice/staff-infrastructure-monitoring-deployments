@@ -337,17 +337,37 @@
   regions: [eu-west-2]
   roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   metrics:
-  - name: Error
+  - name: "Sent Access-Accept"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "Login OK"
+  - name: "Sent Access-Reject"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "Login incorrect"
+  - name: "Ignoring request to auth proto tcp address"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Ignoring request to auth address"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error: post_auth - Failed to find attribute"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error: python"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "Error:"
     statistics: [Sum]
     nilToZero: true
     period: 300
@@ -357,17 +377,12 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "Ignoring request"
+  - name: "write:fatal:unknown CA"
     statistics: [Sum]
     nilToZero: true
     period: 300
     length: 300
-  - name: "Error python"
-    statistics: [Sum]
-    nilToZero: true
-    period: 300
-    length: 300
-  - name: "Error post_auth - Failed to find attribute"
+  - name: "authorized_macs: users: Matched entry"
     statistics: [Sum]
     nilToZero: true
     period: 300
