@@ -387,4 +387,59 @@
     nilToZero: true
     period: 300
     length: 300
+- namespace: GP_PORTAL_VMseries_dimensions
+  name: "GP_PORTAL_VMseries_dimensions"
+  regions: [eu-west-2]
+  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
+  metrics:
+  - name: "panSessionUtilization"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panSessionThroughputPps"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panSessionThroughputKbps"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panSessionSslProxyUtilization"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panSessionConnectionsPerSecond"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panSessionActive"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panGPGWUtilizationActiveTunnels"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "panGPGatewayUtilizationPct"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "DataPlanePacketBufferUtilization"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300
+  - name: "DataPlaneCPUUtilizationPct"
+    statistics: [Average]
+    nilToZero: true
+    period: 300
+    length: 300 
 {{ end }}
