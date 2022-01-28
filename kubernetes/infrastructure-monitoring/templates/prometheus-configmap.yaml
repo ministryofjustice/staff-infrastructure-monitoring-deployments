@@ -105,8 +105,8 @@ data:
             # SOP OCI
             - https://sop.govsharedservices.gov.uk:4450
             # PA 5260s Firewalls in Farnham and Corsham
-            - gateway-c.internal.vpn.justice.gov.uk
-            - gateway-f.internal.vpn.justice.gov.uk
+            - https://gateway-c.internal.vpn.justice.gov.uk
+            - https://gateway-f.internal.vpn.justice.gov.uk
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
