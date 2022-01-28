@@ -103,7 +103,6 @@ data:
             - https://intranet.noms.gsi.gov.uk/ # There is no routing via PSN so removing
             - https://www.ppud.gsi.gov.uk/ # There is no routing via PSN so removing
             # SOP OCI
-            - https://sop.govsharedservices.gov.uk:4450/accessgate/dossologin
             - https://sop.govsharedservices.gov.uk:4450
             # PA 5260s Firewalls in Farnham and Corsham
             - gateway-c.internal.vpn.justice.gov.uk
