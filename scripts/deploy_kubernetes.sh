@@ -34,6 +34,10 @@ create_kubeconfig(){
   chmod g-r $KUBECONFIG
 }
 
+create_kubernetes_namespace() {
+  kubectl create namespace $KUBERNETES_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+}
+
 create_basic_auth() {
   printf "\nCreating basic-auth secret\n\n"
   echo $basic_auth_content > auth
@@ -115,6 +119,7 @@ main(){
     get_outputs
     install_dependent_helm_chart
     create_kubeconfig
+    create_kubernetes_namespace
     create_basic_auth
     upgrade_auth_configmap
     deploy_ingress_nginx
