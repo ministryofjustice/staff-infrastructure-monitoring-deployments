@@ -17,6 +17,6 @@ get-services:
 	kubectl get services --kubeconfig="./kubernetes/kubeconfig" 
 
 switch-to-namespace:
-	aws-vault exec $$AWS_VAULT_PROFILE -- kubectl config set-context --currrent --namespace=$$KUBERNETES_NAMESPACE --kubeconfig="./kubernetes/kubeconfig" 
+	kubectl config set-context --current --namespace=$$KUBERNETES_NAMESPACE --kubeconfig="./kubernetes/kubeconfig" 
 
 .PHONY: deploy get-pods get-services switch-to-namespace
