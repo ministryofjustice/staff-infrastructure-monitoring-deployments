@@ -35,7 +35,7 @@ create_kubeconfig(){
 }
 
 create_kubernetes_namespace() {
-  kubectl create namespace $KUBERNETES_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+  kubectl create namespace $KUBERNETES_NAMESPACE --dry-run=true -o yaml | kubectl apply -f -
 }
 
 create_basic_auth() {
