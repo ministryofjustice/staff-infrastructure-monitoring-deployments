@@ -377,7 +377,7 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "writefatalunknown CA"
+  - name: "unknown CA"
     statistics: [Sum]
     nilToZero: true
     period: 300
