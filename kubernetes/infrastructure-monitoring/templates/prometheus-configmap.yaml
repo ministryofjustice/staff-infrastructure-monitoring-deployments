@@ -99,14 +99,28 @@ data:
             - https://portal.vpn.justice.gov.uk #Production
             - https://portal.prep.vpn.justice.gov.uk #Prep
             - https://alpha-fw.vpn.justice.gov.uk/ #Alpha VPN
-            # PSN Service URLs
-            - https://intranet.noms.gsi.gov.uk/ # There is no routing via PSN so removing
-            - https://www.ppud.gsi.gov.uk/ # There is no routing via PSN so removing
             # SOP OCI
             - https://sop.govsharedservices.gov.uk:4450
             # PA 5260s Firewalls in Farnham and Corsham
             - https://gateway-c.internal.vpn.justice.gov.uk
             - https://gateway-f.internal.vpn.justice.gov.uk
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+
+      - job_name: 'blackbox-staff-urls'
+        metrics_path: /probe
+        params:
+          module: [http_slow_sites] # Look for a HTTP 200 response timeout set to 30secs
+        static_configs:
+          - targets:
+            # PSN Service URLs
+            - https://intranet.noms.gsi.gov.uk/ # There is no routing via PSN so removing
+            - https://www.ppud.gsi.gov.uk/ # There is no routing via PSN so removing
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
