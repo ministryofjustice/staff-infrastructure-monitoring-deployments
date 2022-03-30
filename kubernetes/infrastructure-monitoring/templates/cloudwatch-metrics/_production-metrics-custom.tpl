@@ -387,6 +387,11 @@
     nilToZero: true
     period: 300
     length: 300
+  - name: "Health Check: OK"
+    statistics: [Sum]
+    nilToZero: true
+    period: 300
+    length: 300
 - namespace: GP_VMseries
   name: "GP_VMseries"
   regions: [eu-west-2]
