@@ -392,8 +392,8 @@
     nilToZero: true
     period: 300
     length: 300
-- namespace: GP_VMseries
-  name: "GP_VMseries"
+- namespace: GP_GATEWAY_VMseries
+  name: "GP_GATEWAY_VMseries"
   regions: [eu-west-2]
   roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
   metrics:
