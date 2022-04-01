@@ -387,7 +387,7 @@
     nilToZero: true
     period: 300
     length: 300
-  - name: "Health Check: OK"
+  - name: "Health Check OK"
     statistics: [Sum]
     nilToZero: true
     period: 300
