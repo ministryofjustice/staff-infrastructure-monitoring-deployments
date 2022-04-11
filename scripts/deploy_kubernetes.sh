@@ -113,7 +113,6 @@ azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
 azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
 hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
 hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
-hosted_zone_public_id=$HOSTED_ZONE_PUBLIC_ID,\
 smtpexporter.loadbalancer=$smtp_loadbalancer,\
 network_address.corsham=$corsham_network_address,\
 network_address.farnborough=$farnborough_network_address,\
