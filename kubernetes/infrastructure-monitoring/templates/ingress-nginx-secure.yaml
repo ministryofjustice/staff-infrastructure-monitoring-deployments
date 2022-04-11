@@ -3,13 +3,19 @@ kind: Ingress
 metadata:
   name: {{ .Release.Name }}-ingress-nginx-secure
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Prometheus'
 spec:
+  tls:
+  - hosts:
+    - thanos.{{ .Values.hosted_zone_public }}
+    secretName: thanos-ssl  
   rules:
-  - host: thanos-secure-{{ .Release.Namespace }}.{{ .Values.hosted_zone_public }}
+  - host: thanos.{{ .Values.hosted_zone_public }}
     http:
       paths:
         - path: /
@@ -19,4 +25,5 @@ spec:
               name: {{ .Release.Name }}-thanos-receiver
               port:
                 number: 10908
+
                 
