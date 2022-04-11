@@ -15,6 +15,7 @@ get_outputs() {
 install_dependent_helm_chart() {
   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
   helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo add jetstack https://charts.jetstack.io
   helm repo update
 }
 
@@ -54,6 +55,15 @@ upgrade_auth_configmap(){
 deploy_ingress_nginx() {
   printf "\nInstalling/ upgrading NGINX Ingress chart\n\n"
   helm upgrade --install mojo-$ENV-ima-ingress-nginx ingress-nginx/ingress-nginx
+}
+
+deploy_cert_manager() {
+  printf "\nInstalling/ upgrading cert-manager chart\n\n"
+  helm upgrade --install mojo-$ENV-cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.8.0 \
+  --set installCRDs=true
 }
 
 deploy_external_dns() {
@@ -100,6 +110,7 @@ azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
 azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
 hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
 hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
+hosted_zone_public_id=$HOSTED_ZONE_PUBLIC_ID,\
 smtpexporter.loadbalancer=$smtp_loadbalancer,\
 network_address.corsham=$corsham_network_address,\
 network_address.farnborough=$farnborough_network_address,\
@@ -124,6 +135,7 @@ main(){
     upgrade_auth_configmap
     deploy_ingress_nginx
     deploy_external_dns
+    deploy_cert_manager
     upgrade_ima_chart
     get_prometheus_endpoint
 
