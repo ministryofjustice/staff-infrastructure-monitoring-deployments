@@ -10,6 +10,9 @@ get_outputs() {
   corsham_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/corsham-network-address | jq -r .Parameter.Value`
   farnborough_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/farnborough-network-address | jq -r .Parameter.Value`
   cloudwatch_exporter_access_role_arns=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/cloudwatch_exporter_access_role_arns | jq -r .Parameter.Value`
+  cert_slack_email=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/cert-slack-email | jq -r .Parameter.Value`
+  letsencrypt_url=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/letsencrypt-url | jq -r .Parameter.Value`
+  public_hosted_zone_id=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/public_hosted_zone_id | jq -r .Parameter.Value`
 }
 
 install_dependent_helm_chart() {
@@ -115,7 +118,10 @@ smtpexporter.loadbalancer=$smtp_loadbalancer,\
 network_address.corsham=$corsham_network_address,\
 network_address.farnborough=$farnborough_network_address,\
 blackboxexporter.loadbalancer=$blackbox_loadbalancer,\
-snmpexporter.loadbalancer=$snmp_loadbalancer
+snmpexporter.loadbalancer=$snmp_loadbalancer,\
+cert_slack_email=$cert_slack_email,\
+letsencrypt_url=$letsencrypt_url,\
+public_hosted_zone_id=$public_hosted_zone_id
 }
 
 get_prometheus_endpoint() {
