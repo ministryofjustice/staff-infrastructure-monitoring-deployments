@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-alertmanager
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+    service.beta.kubernetes.io/aws-load-balancer-internal: 10.180.100.0/22
 spec:
   type: LoadBalancer
   selector:
