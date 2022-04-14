@@ -10,9 +10,9 @@ get_outputs() {
   corsham_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/corsham-network-address | jq -r .Parameter.Value`
   farnborough_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/farnborough-network-address | jq -r .Parameter.Value`
   cloudwatch_exporter_access_role_arns=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/cloudwatch_exporter_access_role_arns | jq -r .Parameter.Value`
-  cert_slack_email=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/cert-slack-email | jq -r .Parameter.Value`
-  letsencrypt_url=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/letsencrypt-url | jq -r .Parameter.Value`
-  public_hosted_zone_id=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/public_hosted_zone_id | jq -r .Parameter.Value`
+  certificateAlertsSlackChannel=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/cert-slack-email | jq -r .Parameter.Value`
+  letsencryptDirectoryUrl=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/letsencrypt-url | jq -r .Parameter.Value`
+  publicHostedZoneId=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/public_hosted_zone_id | jq -r .Parameter.Value`
 }
 
 install_dependent_helm_chart() {
@@ -71,14 +71,14 @@ deploy_cert_manager() {
 
 deploy_external_dns() {
   printf "\nInstalling/ upgrading external DNS chart\n\n"
-  HOSTED_ZONE_PRIVATE=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
-  HOSTED_ZONE_PUBLIC=`aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/$ENV/hosted-zone-public | jq -r .Parameter.Value`
+  hostedZonePrivate=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
+  hostedZonePublic=`aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/$ENV/hosted-zone-public | jq -r .Parameter.Value`
 
   helm upgrade --install mojo-$ENV-ima-external-dns bitnami/external-dns \
   --set provider=aws \
   --set source=ingress \
-  --set domainFilters[0]=$HOSTED_ZONE_PRIVATE\
-  --set domainFilters[1]=$HOSTED_ZONE_PUBLIC\
+  --set domainFilters[0]=$hostedZonePrivate\
+  --set domainFilters[1]=$hostedZonePublic\
   --set policy=sync \
   --set registry=txt \
   --set interval=3m
@@ -94,33 +94,33 @@ upgrade_ima_chart(){
 
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
+alertmanagerImage=prom/alertmanager,\
+azure.devl.clientId=$DEVL_clientId,\
+azure.devl.clientSecret=$DEVL_clientSecret,\
+azure.devl.subscriptionId=$DEVL_subscriptionId,\
+azure.devl.tenantId=$DEVL_tenantId,\
+azure.preprod.clientId=$PREPROD_clientId,\
+azure.preprod.clientSecret=$PREPROD_clientSecret,\
+azure.preprod.subscriptionId=$PREPROD_subscriptionId,\
+azure.preprod.tenantId=$PREPROD_tenantId,\
+blackboxExporterLoadBalancer=$blackbox_loadbalancer,\
+certificateAlertsSlackChannel=$certificateAlertsSlackChannel,\
+cloudwatchExporterAccessRoleArns=$(echo $cloudwatch_exporter_access_role_arns | sed 's/,/\\,/g'),\
+cloudwatchExporterImage=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter:v0.26.3-alpha,\
+configmapReloadImage=jimmidyson/configmap-reload,\
 environment=$ENV,\
-prometheus.image=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
-configmap_reload.image=jimmidyson/configmap-reload,\
-alertmanager.image=prom/alertmanager,\
-prometheusThanosStorageBucket.bucketName=$prometheus_thanos_storage_bucket_name,\
-cloudwatchExporter.image=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter:v0.26.3-alpha,\
-prometheusThanosStorageBucket.kmsKeyId=$prometheus_thanos_storage_kms_key_id,\
-thanos.image=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
-cloudwatchExporter.accessRoleArns=$(echo $cloudwatch_exporter_access_role_arns | sed 's/,/\\,/g'),\
-azure.devl.subscription_id=$DEVL_SUBSCRIPTION_ID,\
-azure.devl.client_id=$DEVL_CLIENT_ID,\
-azure.devl.client_secret=$DEVL_CLIENT_SECRET,\
-azure.devl.tenant_id=$DEVL_TENANT_ID,\
-azure.preprod.subscription_id=$PREPROD_SUBSCRIPTION_ID,\
-azure.preprod.client_id=$PREPROD_CLIENT_ID,\
-azure.preprod.client_secret=$PREPROD_CLIENT_SECRET,\
-azure.preprod.tenant_id=$PREPROD_TENANT_ID,\
-hosted_zone_private=$HOSTED_ZONE_PRIVATE,\
-hosted_zone_public=$HOSTED_ZONE_PUBLIC,\
-smtpexporter.loadbalancer=$smtp_loadbalancer,\
-network_address.corsham=$corsham_network_address,\
-network_address.farnborough=$farnborough_network_address,\
-blackboxexporter.loadbalancer=$blackbox_loadbalancer,\
-snmpexporter.loadbalancer=$snmp_loadbalancer,\
-cert_slack_email=$cert_slack_email,\
-letsencrypt_url=$letsencrypt_url,\
-public_hosted_zone_id=$public_hosted_zone_id
+hostedZonePrivate=$hostedZonePrivate,\
+hostedZonePublic=$hostedZonePublic,\
+letsencryptDirectoryUrl=$letsencryptDirectoryUrl,\
+networkAddressCorsham=$corsham_network_address,\
+networkAddressFarnborough=$farnborough_network_address,\
+prometheusImage=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
+publicHostedZoneId=$publicHostedZoneId,\
+smtpExporterLoadBalancer=$smtp_loadbalancer,\
+snmpExporterLoadBalancer=$snmp_loadbalancer,\
+thanosImage=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
+thanosStorageBucketName=$prometheus_thanos_storage_bucket_name,\
+thanosStorageS3KmsKeyId=$prometheus_thanos_storage_kms_key_id
 }
 
 get_prometheus_endpoint() {

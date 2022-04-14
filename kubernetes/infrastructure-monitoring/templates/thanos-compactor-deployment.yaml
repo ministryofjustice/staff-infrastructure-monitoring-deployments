@@ -1,4 +1,4 @@
-{{- if .Values.thanos.compactor.enabled }}
+{{- if .Values.thanosCompactorEnabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-thanos-compactor
-          image: {{ .Values.thanos.image }}
+          image: {{ .Values.thanosImage }}
           command: ["thanos", "compact"]
           args:
             - "--log.level=debug"
@@ -25,13 +25,13 @@ spec:
             - "--objstore.config={
               type: S3,
               config: { 
-                bucket: {{ .Values.prometheusThanosStorageBucket.bucketName }},
-                endpoint: {{ .Values.prometheusThanosStorageBucket.endpoint }},
+                bucket: {{ .Values.thanosStorageBucketName }},
+                endpoint: {{ .Values.thanosStorageS3Endpoint }},
                 insecure: false,
                 signature_version2: false,
                 sse_config: {
                   type: SSE-KMS,
-                  kms_key_id: {{ .Values.prometheusThanosStorageBucket.kmsKeyId }}
+                  kms_key_id: {{ .Values.thanosStorageS3KmsKeyId }}
                 }
               } 
             }"

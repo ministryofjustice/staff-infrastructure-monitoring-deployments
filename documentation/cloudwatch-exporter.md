@@ -70,7 +70,7 @@ The syntax is slightly _different_ but very similar to the standard config.
 - namespace: Kea-DHCP # Your custom Cloudwatch Namespace
   name: "Kea DHCP" # visible name
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporter.accessRoleArns }}]
+  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
   metrics:
   - name: STANDBY_WARN # Metric name
     statistics: [Average, Sum, Maximum, Minimum]

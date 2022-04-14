@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: thanos-store
-        image: {{ .Values.thanos.image }}
+        image: {{ .Values.thanosImage }}
         ports:
         - containerPort: 20091
         - containerPort: 20902
@@ -28,13 +28,13 @@ spec:
           - "--objstore.config={
             type: S3,
             config: { 
-              bucket: {{ .Values.prometheusThanosStorageBucket.bucketName }},
-              endpoint: {{ .Values.prometheusThanosStorageBucket.endpoint }},
+              bucket: {{ .Values.thanosStorageBucketName }},
+              endpoint: {{ .Values.thanosStorageS3Endpoint }},
               insecure: false,
               signature_version2: false,
               sse_config: {
                 type: SSE-KMS,
-                kms_key_id: {{ .Values.prometheusThanosStorageBucket.kmsKeyId }}
+                kms_key_id: {{ .Values.thanosStorageS3KmsKeyId }}
               }
             } 
           }"

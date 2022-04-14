@@ -4,12 +4,12 @@ metadata:
   name: letsencrypt
 spec:
   acme:
-    email: {{ .Values.cert_slack_email }}
+    email: {{ .Values.certificateAlertsSlackChannel }}
     privateKeySecretRef:
       name: letsencrypt
-    server: {{ .Values.letsencrypt_url }}
+    server: {{ .Values.letsencryptDirectoryUrl }}
     solvers: 
       - dns01:
           route53:
             region: eu-west-2
-            hostedZoneID: {{ .Values.public_hosted_zone_id }}
+            hostedZoneID: {{ .Values.publicHostedZoneId }}

@@ -58,7 +58,7 @@ data:
         honor_labels: true
         scheme: http
         dns_sd_configs:
-          - names: ['{{ .Values.smtpexporter.loadbalancer }}']
+          - names: ['{{ .Values.smtpExporterLoadBalancer }}']
             type: A
             port: 9154
             
@@ -77,7 +77,7 @@ data:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
       - job_name: 'blackbox-http'
         metrics_path: /probe
@@ -110,7 +110,7 @@ data:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
       - job_name: 'blackbox-staff-urls'
         metrics_path: /probe
@@ -127,7 +127,7 @@ data:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
       - job_name: blackbox-ping-ark
         metrics_path: /probe
@@ -136,30 +136,30 @@ data:
         static_configs:
           - targets:
             # Corsham
-            - {{ .Values.network_address.corsham }}.1 # MoJ-ARKC-FW02_A (Gateway)
-            - {{ .Values.network_address.corsham }}.5 # MOJ-ARKC-SCON01
-            - {{ .Values.network_address.corsham }}.6 # MOJ-ARKC-SW03
-            - {{ .Values.network_address.corsham }}.7 # MoJ-ARKC-FW02_A
-            - {{ .Values.network_address.corsham }}.8 # MoJ-ARKC-FW02_B
-            - {{ .Values.network_address.corsham }}.10 # MoJ-ARKC-FW01_A
-            - {{ .Values.network_address.corsham }}.11 # MoJ-ARKC-FW01_B
-            - {{ .Values.network_address.corsham }}.20 # MOJ-ARKC-SW01
-            - {{ .Values.network_address.corsham }}.30 # MOJ-ARKC-SW02
-            - {{ .Values.network_address.corsham }}.201 # MoJ-ARKC-ESX01
-            - {{ .Values.network_address.corsham }}.202 # MoJ-ARKC-ESX02
+            - {{ .Values.networkAddressCorsham }}.1 # MoJ-ARKC-FW02_A (Gateway)
+            - {{ .Values.networkAddressCorsham }}.5 # MOJ-ARKC-SCON01
+            - {{ .Values.networkAddressCorsham }}.6 # MOJ-ARKC-SW03
+            - {{ .Values.networkAddressCorsham }}.7 # MoJ-ARKC-FW02_A
+            - {{ .Values.networkAddressCorsham }}.8 # MoJ-ARKC-FW02_B
+            - {{ .Values.networkAddressCorsham }}.10 # MoJ-ARKC-FW01_A
+            - {{ .Values.networkAddressCorsham }}.11 # MoJ-ARKC-FW01_B
+            - {{ .Values.networkAddressCorsham }}.20 # MOJ-ARKC-SW01
+            - {{ .Values.networkAddressCorsham }}.30 # MOJ-ARKC-SW02
+            - {{ .Values.networkAddressCorsham }}.201 # MoJ-ARKC-ESX01
+            - {{ .Values.networkAddressCorsham }}.202 # MoJ-ARKC-ESX02
 
             # Farnborough
-            - {{ .Values.network_address.farnborough }}.1 # MoJ-ARKC-FW02_A (Gateway)
-            - {{ .Values.network_address.farnborough }}.5 # MOJ-ARKC-SCON01
-            - {{ .Values.network_address.farnborough }}.6 # MOJ-ARKC-SW03
-            - {{ .Values.network_address.farnborough }}.7 # MoJ-ARKC-FW02_A
-            - {{ .Values.network_address.farnborough }}.8 # MoJ-ARKC-FW02_B
-            - {{ .Values.network_address.farnborough }}.10 # MoJ-ARKC-FW01_A
-            - {{ .Values.network_address.farnborough }}.11 # MoJ-ARKC-FW01_B
-            - {{ .Values.network_address.farnborough }}.20 # MOJ-ARKC-SW01
-            - {{ .Values.network_address.farnborough }}.30 # MOJ-ARKC-SW02
-            - {{ .Values.network_address.farnborough }}.201 # MoJ-ARKC-ESX01
-            - {{ .Values.network_address.farnborough }}.202 # MoJ-ARKC-ESX02
+            - {{ .Values.networkAddressFarnborough }}.1 # MoJ-ARKC-FW02_A (Gateway)
+            - {{ .Values.networkAddressFarnborough }}.5 # MOJ-ARKC-SCON01
+            - {{ .Values.networkAddressFarnborough }}.6 # MOJ-ARKC-SW03
+            - {{ .Values.networkAddressFarnborough }}.7 # MoJ-ARKC-FW02_A
+            - {{ .Values.networkAddressFarnborough }}.8 # MoJ-ARKC-FW02_B
+            - {{ .Values.networkAddressFarnborough }}.10 # MoJ-ARKC-FW01_A
+            - {{ .Values.networkAddressFarnborough }}.11 # MoJ-ARKC-FW01_B
+            - {{ .Values.networkAddressFarnborough }}.20 # MOJ-ARKC-SW01
+            - {{ .Values.networkAddressFarnborough }}.30 # MOJ-ARKC-SW02
+            - {{ .Values.networkAddressFarnborough }}.201 # MoJ-ARKC-ESX01
+            - {{ .Values.networkAddressFarnborough }}.202 # MoJ-ARKC-ESX02
             # External DNS
             - 1.1.1.1 # Cloudflare
             - 25.25.25.25 # NCSC PDNS
@@ -170,7 +170,7 @@ data:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: '{{ .Values.blackboxexporter.loadbalancer }}:9115'
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
 {{- if eq .Values.environment "production" }}
 {{ include "snmpexporterjobs.production" . | indent 6 }}

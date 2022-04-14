@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: thanos-querier
-        image: {{ .Values.thanos.image }}
+        image: {{ .Values.thanosImage }}
         ports:
         - containerPort: 10902
         command: ["thanos", "query"]

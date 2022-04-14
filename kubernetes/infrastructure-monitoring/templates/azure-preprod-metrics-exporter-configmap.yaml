@@ -7,10 +7,10 @@ data:
     active_directory_authority_url: "https://login.microsoftonline.com/"
     resource_manager_url: "https://management.azure.com/"
     credentials:
-      subscription_id: "{{ .Values.azure.preprod.subscription_id }}"
-      client_id: "{{ .Values.azure.preprod.client_id }}"
-      client_secret: "{{ .Values.azure.preprod.client_secret }}"
-      tenant_id: "{{ .Values.azure.preprod.tenant_id }}"
+      subscriptionId: "{{ .Values.azure.preprod.subscriptionId }}"
+      clientId: "{{ .Values.azure.preprod.clientId }}"
+      clientSecret: "{{ .Values.azure.preprod.clientSecret }}"
+      tenantId: "{{ .Values.azure.preprod.tenantId }}"
 
     resource_tags:
       - resource_tag_name: "prometheusautomationAccounts"

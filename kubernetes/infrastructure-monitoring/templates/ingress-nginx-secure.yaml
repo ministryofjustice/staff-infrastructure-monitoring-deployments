@@ -12,10 +12,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - thanos.{{ .Values.hosted_zone_public }}
+    - thanos.{{ .Values.hostedZonePublic }}
     secretName: thanos-ssl  
   rules:
-  - host: thanos.{{ .Values.hosted_zone_public }}
+  - host: thanos.{{ .Values.hostedZonePublic }}
     http:
       paths:
         - path: /
