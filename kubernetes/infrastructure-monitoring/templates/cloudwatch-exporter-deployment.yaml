@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cloudwatch-exporter
-        image: {{ .Values.cloudwatchExporter.image }}
+        image: {{ .Values.cloudwatchExporterImage }}
         ports:
         - containerPort: 5000
         args:
