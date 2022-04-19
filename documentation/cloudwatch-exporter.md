@@ -2,10 +2,10 @@
 
 ## Table of contents
 
-- [Cloudwatch exporter](#azure-metrics-exporter)
+- [Cloudwatch exporter](#cloudwatch-exporter)
   - [Table of contents](#table-of-contents)
-  - [About Cloudwatch exporter](#about-azure-metrics-exporter)
-  - [Deploy Cloudwatch exporter](#deploy-azure-metrics-exporter)
+  - [About Cloudwatch exporter](#about-cloudwatch-exporter)
+  - [Deploy Cloudwatch exporter](#deploy-cloudwatch-exporter)
     - [Prerequisites](#prerequisites)
     - [Adding AWS Metrics](#adding-aws-metrics)
     - [Adding Custom Metrics](#adding-custom-metrics)
