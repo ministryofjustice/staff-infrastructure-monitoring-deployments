@@ -8,6 +8,7 @@
   - [Set up AWS Vault](#set-up-aws-vault)
 - [Usage](#usage)
   - [Accessing the cluster](#accessing-the-cluster)
+  - [Send metrics from your local prometheus](documentation/prometheus-remote-write.md)
   - [Deploy to your namespace](#deploy-to-your-namespace)
   - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
   - [Cloudwatch metrics Exporter](documentation/cloudwatch-exporter.md) (including adding custom metrics)
