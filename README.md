@@ -100,7 +100,9 @@ This will delete your namespace on the cluster and all pods/services etc. associ
 
 Switch Role (AWS Console)
 
-1.	Login to AWS Shared-Services console and open the parameter store, lookup require role and note down, account number and role name. 
+As the EKS clusters are deployed using an assumed role from Shared Services, to access them directly in the console you will need to manually assume that role.
+
+1.	Login to AWS Shared-Services console and open the parameter store, lookup required role `/codebuild/pttp-ci-ima-pipeline/$ENV/assume_role` and note down, account number and role name. 
 ```
 Account Number: 0123456789 
 Role Name: LandingZone 
@@ -113,6 +115,8 @@ Role Name: LandingZone
 3.	Input account number and role followed a Display Name of your choice i.e. "Dev Landing Zone" and then click on ‘Switch Role’ 
 
 ![image](https://user-images.githubusercontent.com/41325732/164258480-6c2504b3-5f05-4ac0-8ffa-2bfae5581079.png)
+
+You will now be able to drill down into the EKS cluster config within the AWS console.
 
 Further information can be found at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html
 
