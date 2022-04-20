@@ -108,8 +108,11 @@ Role Name: LandingZone
 
 1.	 Still within the AWS console click on your account name in the top right and then select ‘Switch role’
 
+![image](https://user-images.githubusercontent.com/41325732/164258408-b03ba5bc-64cd-4e99-9b87-e9bebe870ca9.png)
 
 1.	Input account number and role followed a Display Name of your choice i.e. Dev Landing Zone then click on ‘Switch Role’ 
+
+![image](https://user-images.githubusercontent.com/41325732/164258480-6c2504b3-5f05-4ac0-8ffa-2bfae5581079.png)
 
 Further information can be found at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html
 
