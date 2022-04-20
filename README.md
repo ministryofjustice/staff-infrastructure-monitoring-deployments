@@ -13,6 +13,7 @@
   - [Azure metrics exporter](documentation/azure-metrics-exporter.md)
   - [Cloudwatch metrics Exporter](documentation/cloudwatch-exporter.md) (including adding custom metrics)
   - [Removing your namespace and associated resources](#removing-your-namespace-and-associated-resources)
+  - [Troubleshooting](#troubleshooting)
 - [Other Documentation](#other-documentation)
 - [Our other repositories](#our-other-repositories)
 - [License](#license)
@@ -94,6 +95,24 @@ This will delete your namespace on the cluster and all pods/services etc. associ
 ```sh
   make remove-workspace
 ```
+
+### Troubleshooting
+
+Switch Role (AWS Console)
+
+1.	Login to AWS Shared-Services console and open the parameter store, lookup require role and note down, account number and role name. 
+```
+Account Number: 0123456789 
+Role Name: LandingZone 
+```
+
+1.	 Still within the AWS console click on your account name in the top right and then select ‘Switch role’
+
+
+1.	Input account number and role followed a Display Name of your choice i.e. Dev Landing Zone then click on ‘Switch Role’ 
+
+Further information can be found at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html
+
 
 ## Other Documentation
 
