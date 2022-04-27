@@ -13,7 +13,11 @@ discovery:
   jobs:
   - type: AWS/EC2
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: CPUUtilization
