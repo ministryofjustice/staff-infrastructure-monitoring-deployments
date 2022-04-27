@@ -17,7 +17,7 @@ discovery:
     length: 300
     metrics:
       - name: CPUUtilization
-        statistics: [Average]
+        statistics: [Average, Minimum, Maximum, Sum]
         nilToZero: true
       - name: StatusCheckFailed
         statistics: [Average]
