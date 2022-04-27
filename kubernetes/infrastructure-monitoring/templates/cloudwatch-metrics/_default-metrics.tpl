@@ -18,6 +18,9 @@ discovery:
       - name: CPUUtilization
         statistics:
           - Average
+          - Minimum
+          - Maximum
+          - Sum
         nilToZero: true
         period: 600
         length: 300
