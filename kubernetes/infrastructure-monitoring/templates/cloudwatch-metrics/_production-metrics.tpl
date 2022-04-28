@@ -58,7 +58,11 @@ discovery:
         nilToZero: true
   - type: AWS/ECS
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: CPUUtilization
@@ -69,7 +73,11 @@ discovery:
         nilToZero: true
   - type: AWS/RDS
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: FreeStorageSpace
@@ -86,7 +94,11 @@ discovery:
         nilToZero: true
   - type: AWS/S3
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: BucketSizeBytes
@@ -94,7 +106,11 @@ discovery:
         nilToZero: true
   - type: AWS/RDS
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: FreeStorageSpace
@@ -111,7 +127,11 @@ discovery:
         nilToZero: true
   - type: AWS/VPN
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: TunnelDataOut
@@ -125,7 +145,11 @@ discovery:
         nilToZero: true
   - type: AWS/SQS
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: NumberOfMessagesDeleted
@@ -157,7 +181,11 @@ discovery:
         nilToZero: true
   - type: AWS/Kinesis
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: GetRecords.IteratorAge
@@ -168,7 +196,11 @@ discovery:
         nilToZero: true
   - type: AWS/ApiGateway
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: 4XXError
@@ -188,7 +220,11 @@ discovery:
         nilToZero: true
   - type: AWS/Lambda
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: ConcurrentExecutions
@@ -205,7 +241,11 @@ discovery:
         nilToZero: true
   - type: AWS/NetworkELB
     regions: [eu-west-2]
-    roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+    roles:
+      - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+      - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+      - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
     length: 300
     metrics:
       - name: ProcessedBytes
