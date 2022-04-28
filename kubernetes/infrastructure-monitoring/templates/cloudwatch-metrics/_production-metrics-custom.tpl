@@ -2,7 +2,11 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -17,7 +21,11 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -32,7 +40,11 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dhcp-cluster
@@ -47,7 +59,11 @@
 - namespace: ECS/ContainerInsights
   name: "ECS - Container Insights"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   dimensions:
   - name: ClusterName
     value: staff-device-{{ .Values.environment }}-dns-cluster
@@ -62,7 +78,11 @@
 - namespace: DNS-Bind-Server
   name: "DNS Bind Server"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   metrics:
   - name: CookieIn
     statistics: [Average, Maximum, Minimum]
@@ -167,7 +187,11 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   dimensions:
   - name: Server
     value: primary
@@ -230,7 +254,11 @@
 - namespace: Kea-DHCP
   name: "Kea DHCP"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   metrics:
   - name: STANDBY_WARN
     statistics: [Average, Sum]
@@ -335,7 +363,11 @@
 - namespace: mojo-nac-requests
   name: "mojo-nac-requests"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   metrics:
   - name: "Sent Access-Accept"
     statistics: [Sum]
@@ -395,7 +427,11 @@
 - namespace: GP_GATEWAY_VMseries
   name: "GP_GATEWAY_VMseries"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   metrics:
   - name: "panSessionUtilization"
     statistics: [Average]
@@ -450,7 +486,11 @@
 - namespace: GP_PORTAL_VMseries
   name: "GP_PORTAL_VMseries"
   regions: [eu-west-2]
-  roleArns: [{{ .Values.cloudwatchExporterAccessRoleArns }}]
+  roles:
+    - roleArn: {{ .Values.cloudwatchExporterProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPreProductionArn }}
+    - roleArn: {{ .Values.cloudwatchExporterDevelopmentArn }}
+    - roleArn: {{ .Values.cloudwatchExporterPkiArn }}
   metrics:
   - name: "panSessionUtilization"
     statistics: [Average]
