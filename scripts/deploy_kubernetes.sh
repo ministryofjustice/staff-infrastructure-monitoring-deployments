@@ -23,6 +23,7 @@ install_dependent_helm_chart() {
   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add jetstack https://charts.jetstack.io
+  helm repo add stakater https://stakater.github.io/stakater-charts
   helm repo update
 }
 
@@ -71,6 +72,11 @@ deploy_cert_manager() {
   --create-namespace \
   --version v1.8.0 \
   --set installCRDs=true
+}
+
+deploy_reloader() {
+  printf "\nInstalling/ upgrading cert-manager chart\n\n"
+  helm upgrade --install mojo-$ENV-reloader stakater/reloader 
 }
 
 deploy_external_dns() {
@@ -146,6 +152,7 @@ main(){
     create_kubernetes_namespace
     create_basic_auth
     upgrade_auth_configmap
+    deploy_reloader
     deploy_ingress_nginx
     deploy_external_dns
     deploy_cert_manager

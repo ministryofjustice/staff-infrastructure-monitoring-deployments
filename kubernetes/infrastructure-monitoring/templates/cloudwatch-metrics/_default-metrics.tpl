@@ -22,7 +22,7 @@ discovery:
           - Maximum
           - Sum
         nilToZero: true
-        period: 600
+        period: 300
         length: 300
   - type: AWS/ECS
     regions:
@@ -34,7 +34,7 @@ discovery:
           - Minimum
           - Maximum
         nilToZero: true
-        period: 600
+        period: 300
         length: 300
       - name: MemoryUtilization
         statistics: 
@@ -42,7 +42,7 @@ discovery:
           - Minimum
           - Maximum
         nilToZero: true
-        period: 600
+        period: 300
         length: 300
   - type: AWS/RDS
     regions:
@@ -54,7 +54,7 @@ discovery:
           - Minimum
           - Maximum
         nilToZero: true
-        period: 600
+        period: 300
         length: 300
   - type: AWS/S3
     regions:
@@ -64,6 +64,6 @@ discovery:
         statistics:
           - Average
         nilToZero: true
-        period: 600
+        period: 300
         length: 300
 {{ end }}
