@@ -24,6 +24,7 @@ install_dependent_helm_chart() {
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add jetstack https://charts.jetstack.io
   helm repo add stakater https://stakater.github.io/stakater-charts
+  helm repo add eks https://aws.github.io/eks-charts
   helm repo update
 }
 
@@ -41,6 +42,24 @@ create_kubeconfig(){
     --region eu-west-2 update-kubeconfig --name $cluster_name --role-arn $assume_role
   chmod o-r $KUBECONFIG
   chmod g-r $KUBECONFIG
+}
+
+update_aws_node() {
+  for kind in daemonSet clusterRole clusterRoleBinding serviceAccount; do
+    echo "setting annotations and labels on $kind/aws-node"
+    kubectl -n kube-system annotate --overwrite $kind aws-node meta.helm.sh/release-name=aws-vpc-cni
+    kubectl -n kube-system annotate --overwrite $kind aws-node meta.helm.sh/release-namespace=kube-system
+    kubectl -n kube-system label --overwrite $kind aws-node app.kubernetes.io/managed-by=Helm
+  done
+}
+
+deploy_aws_vpc_cni() {
+  helm upgrade -i aws-vpc-cni eks/aws-vpc-cni \
+    --namespace kube-system \
+    --set image.region=eu-west-2 \
+    --set image.tag=v1.11.0 \
+    --set init.image.region=eu-west-2 \
+    --set init.image.tag=v1.11.0
 }
 
 create_kubernetes_namespace() {
@@ -149,6 +168,8 @@ main(){
     get_outputs
     install_dependent_helm_chart
     create_kubeconfig
+    update_aws_node
+    deploy_aws_vpc_cni
     create_kubernetes_namespace
     create_basic_auth
     upgrade_auth_configmap
@@ -158,6 +179,7 @@ main(){
     deploy_cert_manager
     upgrade_ima_chart
     get_prometheus_endpoint
+
 
   # Display all Pods
   printf "\nList of Pods:\n\n"
