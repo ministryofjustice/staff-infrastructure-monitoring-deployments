@@ -44,15 +44,6 @@ create_kubeconfig(){
   chmod g-r $KUBECONFIG
 }
 
-update_aws_node() {
-  for kind in daemonSet clusterRole clusterRoleBinding serviceAccount; do
-    echo "setting annotations and labels on $kind/aws-node"
-    kubectl -n kube-system annotate --overwrite $kind aws-node meta.helm.sh/release-name=aws-vpc-cni
-    kubectl -n kube-system annotate --overwrite $kind aws-node meta.helm.sh/release-namespace=kube-system
-    kubectl -n kube-system label --overwrite $kind aws-node app.kubernetes.io/managed-by=Helm
-  done
-}
-
 deploy_aws_vpc_cni() {
   helm upgrade -i aws-vpc-cni eks/aws-vpc-cni \
     --namespace kube-system \
@@ -168,7 +159,6 @@ main(){
     get_outputs
     install_dependent_helm_chart
     create_kubeconfig
-    update_aws_node
     deploy_aws_vpc_cni
     create_kubernetes_namespace
     create_basic_auth
