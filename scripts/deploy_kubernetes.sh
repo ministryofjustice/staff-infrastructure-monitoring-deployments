@@ -64,6 +64,12 @@ create_basic_auth() {
   kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
 }
 
+authenticate_to_dockerhub() {
+  if [[ -n "${DOCKER_USERNAME}" && -n "${DOCKER_PASSWORD}" ]]; then
+    docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+  fi
+}
+
 upgrade_auth_configmap(){
   printf "\nUpgrading cluster authentication configmap\n\n"
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
@@ -114,7 +120,7 @@ upgrade_ima_chart(){
 
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
-alertmanagerImage=prom/alertmanager,\
+alertmanagerImage=prom/alertmanager:v0.24.0,\
 azure.devl.clientId=$DEVL_clientId,\
 azure.devl.clientSecret=$DEVL_clientSecret,\
 azure.devl.subscriptionId=$DEVL_subscriptionId,\
@@ -130,19 +136,19 @@ cloudwatchExporterDevelopmentArn=$cloudwatch_exporter_development_arn,\
 cloudwatchExporterPkiArn=$cloudwatch_exporter_pki_arn,\
 cloudwatchExporterPreProductionArn=$cloudwatch_exporter_pre_production_arn,\
 cloudwatchExporterProductionArn=$cloudwatch_exporter_production_arn,\
-cloudwatchExporterImage=$SHARED_SERVICES_ECR_BASE_URL/cloudwatch-exporter:latest,\
-configmapReloadImage=jimmidyson/configmap-reload,\
+cloudwatchExporterImage=ghcr.io/nerdswords/yet-another-cloudwatch-exporter:v0.35.0-alpha,\
+configmapReloadImage=jimmidyson/configmap-reload:v0.7.1,\
 environment=$ENV,\
 hostedZonePrivate=$hostedZonePrivate,\
 hostedZonePublic=$hostedZonePublic,\
 letsencryptDirectoryUrl=$letsencryptDirectoryUrl,\
 networkAddressCorsham=$corsham_network_address,\
 networkAddressFarnborough=$farnborough_network_address,\
-prometheusImage=$SHARED_SERVICES_ECR_BASE_URL/prometheus,\
+prometheusImage=prom/prometheus:v2.21.0,\
 publicHostedZoneId=$publicHostedZoneId,\
 smtpExporterLoadBalancer=$smtp_loadbalancer,\
 snmpExporterLoadBalancer=$snmp_loadbalancer,\
-thanosImage=$SHARED_SERVICES_ECR_BASE_URL/thanos,\
+thanosImage=quay.io/thanos/thanos:v0.15.0,\
 thanosStorageBucketName=$prometheus_thanos_storage_bucket_name,\
 thanosStorageS3KmsKeyId=$prometheus_thanos_storage_kms_key_id
 }
@@ -162,6 +168,7 @@ main(){
     deploy_aws_vpc_cni
     create_kubernetes_namespace
     create_basic_auth
+    authenticate_to_dockerhub
     upgrade_auth_configmap
     deploy_reloader
     deploy_ingress_nginx

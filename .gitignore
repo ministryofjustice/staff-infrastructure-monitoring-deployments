@@ -1,3 +1,4 @@
 .env
 kubernetes/kubeconfig
 auth
+.vscode/

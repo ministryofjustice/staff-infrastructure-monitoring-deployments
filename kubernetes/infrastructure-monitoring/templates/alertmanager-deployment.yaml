@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: alertmanager
-        image: {{ .Values.alertmanagerImage }}:latest
+        image: {{ .Values.alertmanagerImage }}
         command: ["alertmanager"]
         args: 
           - "--config.file=/config/alertmanager.yml"
@@ -32,7 +32,7 @@ spec:
         - name: templates
           mountPath: "/templates"
       - name: alertmanager-configmap-reload
-        image: {{ .Values.configmapReloadImage }}:latest
+        image: {{ .Values.configmapReloadImage }}
         args:
           - "--volume-dir=/config"
           - "--webhook-url=http://127.0.0.1:9093/-/reload"
