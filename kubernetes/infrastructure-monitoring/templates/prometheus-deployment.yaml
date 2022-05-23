@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: prometheus
-        image: {{ .Values.prometheusImage }}:prom-prometheus-v2-21-0
+        image: {{ .Values.prometheusImage }}
         ports:
         - containerPort: 9090
         args:
@@ -36,7 +36,7 @@ spec:
         - name: configuration
           mountPath: "/etc/prometheus"
       - name: prometheus-configmap-reload
-        image: {{ .Values.configmapReloadImage }}:latest
+        image: {{ .Values.configmapReloadImage }}
         args:
           - "--volume-dir=/etc/prometheus"
           - "--volume-dir=/alerts"

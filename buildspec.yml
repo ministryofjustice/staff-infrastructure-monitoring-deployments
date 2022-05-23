@@ -2,7 +2,8 @@ version: 0.2
 
 env:
   parameter-store:
-    SHARED_SERVICES_ECR_BASE_URL: "/codebuild/pttp-ci-ima-pipeline/shared_services_base_repository_url"
+    DOCKER_USERNAME: "/moj-network-access-control/docker/username"
+    DOCKER_PASSWORD: "/moj-network-access-control/docker/password"
     DEVL_subscriptionId: "/codebuild/pttp-ci-ima-pipeline/devl-subscription-id"
     DEVL_clientId: "/codebuild/pttp-ci-ima-pipeline/devl-client-id"
     DEVL_clientSecret: "/codebuild/pttp-ci-ima-pipeline/devl-client-secret"
