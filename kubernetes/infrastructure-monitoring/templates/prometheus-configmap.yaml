@@ -172,6 +172,121 @@ data:
           - target_label: __address__
             replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
+      - job_name: 'dom1_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [dom1_dns_probe]
+        static_configs:
+          - targets:
+            - 	10.171.68.147
+            - 	10.171.68.148
+            - 	10.171.68.149
+            - 	10.171.68.150
+            - 	10.172.68.147
+            - 	10.172.68.148
+            - 	10.172.68.149
+            - 	10.172.68.150
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+    
+      - job_name: 'quantum_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [quantum_dns_probe]
+        static_configs:
+          - targets:
+            - 	10.64.16.67
+            - 	10.64.141.16
+            - 	10.64.141.17
+            - 	10.64.141.18
+            - 	10.64.141.19
+            - 	10.64.141.20
+            - 	10.64.141.119
+            - 	10.64.141.121
+            - 	10.65.1.26
+            - 	10.65.1.27
+            - 	10.65.1.28
+            - 	10.65.1.29
+            - 	10.95.41.121
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+    
+      - job_name: 'psn_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [psn_dns_probe]
+        static_configs:
+          - targets:
+            - 	51.33.255.42
+            - 	51.33.255.58
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+    
+      - job_name: 'lexlive_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [lexlive_dns_probe]
+        static_configs:
+          - targets:
+            - 10.171.68.145
+            - 10.171.68.146
+            - 10.172.68.146
+            - 10.172.68.145
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+    
+      - job_name: 'internal_vpn_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [internal_vpn_dns_probe]
+        static_configs:
+          - targets:
+            - 	10.180.80.60
+            - 	10.180.81.60
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+    
+      - job_name: 'internal.network_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [internal.network_dns_probe]
+        static_configs:
+          - targets:
+            - 	10.180.80.60
+            - 	10.180.81.60
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+
 {{- if eq .Values.environment "production" }}
 {{ include "snmpexporterjobs.production" . | indent 6 }}
 {{- end }}
