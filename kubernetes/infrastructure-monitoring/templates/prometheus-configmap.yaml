@@ -178,14 +178,14 @@ data:
           module: [dom1_dns_probe]
         static_configs:
           - targets:
-            - 	10.171.68.147
-            - 	10.171.68.148
-            - 	10.171.68.149
-            - 	10.171.68.150
-            - 	10.172.68.147
-            - 	10.172.68.148
-            - 	10.172.68.149
-            - 	10.172.68.150
+            - 10.171.68.147
+            - 10.171.68.148
+            - 10.171.68.149
+            - 10.171.68.150
+            - 10.172.68.147
+            - 10.172.68.148
+            - 10.172.68.149
+            - 10.172.68.150
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
@@ -200,19 +200,19 @@ data:
           module: [quantum_dns_probe]
         static_configs:
           - targets:
-            - 	10.64.16.67
-            - 	10.64.141.16
-            - 	10.64.141.17
-            - 	10.64.141.18
-            - 	10.64.141.19
-            - 	10.64.141.20
-            - 	10.64.141.119
-            - 	10.64.141.121
-            - 	10.65.1.26
-            - 	10.65.1.27
-            - 	10.65.1.28
-            - 	10.65.1.29
-            - 	10.95.41.121
+            - 10.64.16.67
+            - 10.64.141.16
+            - 10.64.141.17
+            - 10.64.141.18
+            - 10.64.141.19
+            - 10.64.141.20
+            - 10.64.141.119
+            - 10.64.141.121
+            - 10.65.1.26
+            - 10.65.1.27
+            - 10.65.1.28
+            - 10.65.1.29
+            - 10.95.41.121
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
@@ -227,8 +227,8 @@ data:
           module: [psn_dns_probe]
         static_configs:
           - targets:
-            - 	51.33.255.42
-            - 	51.33.255.58
+            - 51.33.255.42
+            - 51.33.255.58
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
@@ -261,8 +261,8 @@ data:
           module: [internal_vpn_dns_probe]
         static_configs:
           - targets:
-            - 	10.180.80.60
-            - 	10.180.81.60
+            - 10.180.80.60
+            - 10.180.81.60
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
@@ -277,8 +277,8 @@ data:
           module: [internal.network_dns_probe]
         static_configs:
           - targets:
-            - 	10.180.80.60
-            - 	10.180.81.60
+            - 10.180.80.60
+            - 10.180.81.60
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
