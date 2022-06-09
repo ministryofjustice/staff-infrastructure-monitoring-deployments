@@ -1,15 +1,4 @@
 alertmanagerImage: ""
-azure:
-  devl:
-    subscriptionId: ""
-    clientId : ""
-    clientSecret: ""
-    tenantId: ""
-  preprod:
-    subscriptionId: ""
-    clientId : ""
-    clientSecret: ""
-    tenantId: ""
 blackboxExporterLoadBalancer: ""
 certificateAlertsSlackChannel: ""
 cloudwatchExporterAccessRoleArns: ""

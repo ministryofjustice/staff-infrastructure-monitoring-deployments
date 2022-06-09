@@ -121,14 +121,6 @@ upgrade_ima_chart(){
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
   helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
 alertmanagerImage=prom/alertmanager:v0.24.0,\
-azure.devl.clientId=$DEVL_clientId,\
-azure.devl.clientSecret=$DEVL_clientSecret,\
-azure.devl.subscriptionId=$DEVL_subscriptionId,\
-azure.devl.tenantId=$DEVL_tenantId,\
-azure.preprod.clientId=$PREPROD_clientId,\
-azure.preprod.clientSecret=$PREPROD_clientSecret,\
-azure.preprod.subscriptionId=$PREPROD_subscriptionId,\
-azure.preprod.tenantId=$PREPROD_tenantId,\
 blackboxExporterLoadBalancer=$blackbox_loadbalancer,\
 certificateAlertsSlackChannel=$certificateAlertsSlackChannel,\
 cloudwatchExporterAccessRoleArns=$(echo $cloudwatch_exporter_access_role_arns | sed 's/,/\\,/g'),\
