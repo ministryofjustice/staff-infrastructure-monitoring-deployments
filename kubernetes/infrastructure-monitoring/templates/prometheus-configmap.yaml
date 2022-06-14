@@ -287,6 +287,22 @@ data:
           - target_label: __address__
             replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
 
+      - job_name: 'protective_dns_probe'
+        metrics_path: /probe
+        params:
+          module: [protective_dns_probe]
+        static_configs:
+          - targets:
+            - 25.26.27.28
+            - 25.25.25.25
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Values.blackboxExporterLoadBalancer }}:9115'
+
 {{- if eq .Values.environment "production" }}
 {{ include "snmpexporterjobs.production" . | indent 6 }}
 {{- end }}
