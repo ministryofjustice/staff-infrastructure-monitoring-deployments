@@ -39,6 +39,21 @@ data:
         static_configs:
           - targets: ['{{ .Release.Name }}-cloudwatch-exporter:5000']
 
+      - job_name: json_exporter
+        scrape_interval: 20s
+        scrape_timeout: 10s
+        metrics_path: /probe
+        static_configs:
+          - targets:
+              - {{ .Values.dhcpPortalApi }}
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: '{{ .Release.Name }}-json-exporter:7979'
+
       - job_name: azure_monitor
         honor_labels: true
         static_configs:
@@ -306,3 +321,9 @@ data:
 {{- if eq .Values.environment "production" }}
 {{ include "snmpexporterjobs.production" . | indent 6 }}
 {{- end }}
+{{- if eq .Values.environment "production" }}
+{{ include "jsonexporterjobs.production" . | indent 6 }}
+{{- else }} 
+{{ include "jsonexporterjobs.default" . | indent 6 }}
+{{- end }}
+
