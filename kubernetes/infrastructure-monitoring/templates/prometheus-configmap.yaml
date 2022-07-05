@@ -321,9 +321,5 @@ data:
 {{- if eq .Values.environment "production" }}
 {{ include "snmpexporterjobs.production" . | indent 6 }}
 {{- end }}
-{{- if eq .Values.environment "production" }}
-{{ include "jsonexporterjobs.production" . | indent 6 }}
-{{- else }} 
-{{ include "jsonexporterjobs.default" . | indent 6 }}
-{{- end }}
+
 
