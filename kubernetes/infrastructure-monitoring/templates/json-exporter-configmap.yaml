@@ -24,7 +24,7 @@ data:
         values:
           remaining_ips: '{ .remaining_ips_count }'
           reservations_count: '{ .reservations_count }'
-          usage: '{ .usage }'
+          usage: '{ .usage_percentage }'
           leases: '{ .leases_count }'
           
       - name: MoJO_site
