@@ -17,9 +17,9 @@ get_outputs() {
   certificateAlertsSlackChannel=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/cert-slack-email | jq -r .Parameter.Value`
   letsencryptDirectoryUrl=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/letsencrypt-url | jq -r .Parameter.Value`
   publicHostedZoneId=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/public_hosted_zone_id | jq -r .Parameter.Value`
-  jsonExporterUsername=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/json_exporter_username | jq -r .Parameter.Value`
-  jsonExporterPassword=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/json_exporter_password | jq -r .Parameter.Value`
-  dhcpPortalApi=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/dhcp_portal_api | jq -r .Parameter.Value`
+  jsonExporterUsername=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/$ENV/admin/api/basic_auth_username | jq -r .Parameter.Value`
+  jsonExporterPassword=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/$ENV/admin/api/basic_auth_password | jq -r .Parameter.Value`
+  dhcpPortalApi=`aws ssm get-parameter --name /codebuild/dhcp/$ENV/admin/api/endpoint | jq -r .Parameter.Value`
 }
 
 install_dependent_helm_chart() {
