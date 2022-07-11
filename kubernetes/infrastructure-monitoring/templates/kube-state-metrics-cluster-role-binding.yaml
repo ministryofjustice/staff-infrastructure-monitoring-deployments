@@ -5,12 +5,12 @@ metadata:
     app.kubernetes.io/component: exporter
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/version: 2.5.0
-    name: {{ .Release.Name }}-kube-state-metrics
+    name: "{{ .Release.Name }}-kube-state-metrics"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Release.Name }}-kube-state-metrics
+  name: "{{ .Release.Name }}-kube-state-metrics"
 subjects:
 - kind: ServiceAccount
-  name: {{ .Release.Name }}-kube-state-metrics
-  namespace: {{ .Values.environment }}
+  name: "{{ .Release.Name }}-kube-state-metrics"
+  namespace: "{{ .Values.environment }}"
