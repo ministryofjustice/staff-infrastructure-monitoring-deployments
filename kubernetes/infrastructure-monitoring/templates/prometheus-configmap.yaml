@@ -54,12 +54,12 @@ data:
           - target_label: __address__
             replacement: '{{ .Release.Name }}-json-exporter:7979'
 
-      - job_name: azure_monitor
+      - job_name: kube_state_metrics
+        metrics_path: /metrics
         honor_labels: true
         static_configs:
           - targets:
-            - '{{ .Release.Name }}-azure-devl-metrics-exporter:9276'
-            - '{{ .Release.Name }}-azure-preprod-metrics-exporter:9276'
+              - {{ .Release.Name }}-kube-state-metrics:8080
 
       - job_name: docker_images
         scheme: https
