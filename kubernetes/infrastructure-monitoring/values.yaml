@@ -9,7 +9,7 @@ cloudwatchExporterPreProductionArn: ""
 cloudwatchExporterProductionArn: ""
 configmapReloadImage: ""
 dhcpPortalApi: ""
-debug: false
+debug: true
 environment: ""
 hostedZonePrivate: ""
 hostedZonePublic: ""
