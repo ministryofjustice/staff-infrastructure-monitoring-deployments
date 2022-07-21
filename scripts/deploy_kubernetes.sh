@@ -160,21 +160,21 @@ get_prometheus_endpoint() {
 
 main(){
   export KUBECONFIG="./kubernetes/kubeconfig"
-
-    get_outputs
-    install_dependent_helm_chart
-    create_kubeconfig
-    deploy_aws_vpc_cni
-    create_kubernetes_namespace
-    create_basic_auth
-    authenticate_to_dockerhub
-    upgrade_auth_configmap
-    deploy_reloader
-    deploy_ingress_nginx
-    deploy_external_dns
-    deploy_cert_manager
-    upgrade_ima_chart
-    get_prometheus_endpoint
+  
+  get_outputs
+  install_dependent_helm_chart
+  create_kubeconfig
+  deploy_aws_vpc_cni
+  create_kubernetes_namespace
+  create_basic_auth
+  authenticate_to_dockerhub
+  upgrade_auth_configmap
+  deploy_reloader
+  deploy_ingress_nginx
+  deploy_external_dns
+  deploy_cert_manager
+  upgrade_ima_chart
+  get_prometheus_endpoint
 
 
   # Display all Pods
@@ -183,4 +183,6 @@ main(){
   kubectl get pods --namespace $KUBERNETES_NAMESPACE
 }
 
-main
+if [ $ENV == "production" ]; then
+  main
+fi
