@@ -2,10 +2,12 @@
 
 set -euo pipefail
 
+kubernetes_namespace=$1
+
 get_outputs() {
-  printf "\nFetching terraform outputs for $ENV\n\n"
-  outputs=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value`
-  network_services_outputs=`aws ssm get-parameter --name /codebuild/pttp-ci-infrastructure-net-svcs-core-pipeline/$ENV/terraform_outputs | jq -r .Parameter.Value`
+  printf "\nFetching terraform outputs for production\n\n"
+  outputs=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/production/outputs | jq -r .Parameter.Value`
+  network_services_outputs=`aws ssm get-parameter --name /codebuild/pttp-ci-infrastructure-net-svcs-core-pipeline/production/terraform_outputs | jq -r .Parameter.Value`
   basic_auth_content=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/prometheus-basic-auth | jq -r .Parameter.Value`
   corsham_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/corsham-network-address | jq -r .Parameter.Value`
   farnborough_network_address=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/farnborough-network-address | jq -r .Parameter.Value`
@@ -15,11 +17,11 @@ get_outputs() {
   cloudwatch_exporter_production_arn=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/cloudwatch_exporter_access_role_arn | jq -r .Parameter.Value`
   cloudwatch_exporter_pki_arn=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/pki/cloudwatch_exporter_access_role_arns | jq -r .Parameter.Value`
   certificateAlertsSlackChannel=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/cert-slack-email | jq -r .Parameter.Value`
-  letsencryptDirectoryUrl=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/letsencrypt-url | jq -r .Parameter.Value`
-  publicHostedZoneId=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/$ENV/public_hosted_zone_id | jq -r .Parameter.Value`
-  jsonExporterUsername=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/$ENV/admin/api/basic_auth_username | jq -r .Parameter.Value`
-  jsonExporterPassword=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/$ENV/admin/api/basic_auth_password | jq -r .Parameter.Value`
-  dhcpPortalApi=`aws ssm get-parameter --name /codebuild/dhcp/$ENV/admin/api/endpoint | jq -r .Parameter.Value`
+  letsencryptDirectoryUrl=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/letsencrypt-url | jq -r .Parameter.Value`
+  publicHostedZoneId=`aws ssm get-parameter --with-decryption --name /codebuild/pttp-ci-ima-pipeline/production/public_hosted_zone_id | jq -r .Parameter.Value`
+  jsonExporterUsername=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/production/admin/api/basic_auth_username | jq -r .Parameter.Value`
+  jsonExporterPassword=`aws ssm get-parameter --with-decryption --name /codebuild/dhcp/production/admin/api/basic_auth_password | jq -r .Parameter.Value`
+  dhcpPortalApi=`aws ssm get-parameter --name /codebuild/dhcp/production/admin/api/endpoint | jq -r .Parameter.Value`
 }
 
 install_dependent_helm_chart() {
@@ -47,6 +49,7 @@ create_kubeconfig(){
   chmod g-r $KUBECONFIG
 }
 
+# Once
 deploy_aws_vpc_cni() {
   helm upgrade -i aws-vpc-cni eks/aws-vpc-cni \
     --namespace kube-system \
@@ -57,14 +60,14 @@ deploy_aws_vpc_cni() {
 }
 
 create_kubernetes_namespace() {
-  kubectl create namespace $KUBERNETES_NAMESPACE --dry-run=true -o yaml | kubectl apply -f -
+  kubectl create namespace $kubernetes_namespace --dry-run=true -o yaml | kubectl apply -f -
 }
 
 create_basic_auth() {
   printf "\nCreating basic-auth secret\n\n"
   echo $basic_auth_content > auth
-  kubectl delete secret basic-auth --namespace $KUBERNETES_NAMESPACE --ignore-not-found
-  kubectl create secret generic basic-auth --from-file=./auth --namespace $KUBERNETES_NAMESPACE
+  kubectl delete secret basic-auth --namespace $kubernetes_namespace --ignore-not-found
+  kubectl create secret generic basic-auth --from-file=./auth --namespace $kubernetes_namespace
 }
 
 authenticate_to_dockerhub() {
@@ -76,17 +79,17 @@ authenticate_to_dockerhub() {
 upgrade_auth_configmap(){
   printf "\nUpgrading cluster authentication configmap\n\n"
   cluster_role_arn=$(echo $outputs | jq '.eks_cluster_worker_iam_role_arn.value' | sed 's/"//g')
-  helm upgrade --install --atomic mojo-$ENV-ima-configmap ./kubernetes/auth-configmap --set rolearn=$cluster_role_arn
+  helm upgrade --install --atomic mojo-production-ima-configmap ./kubernetes/auth-configmap --set rolearn=$cluster_role_arn
 }
 
 deploy_ingress_nginx() {
   printf "\nInstalling/ upgrading NGINX Ingress chart\n\n"
-  helm upgrade --install mojo-$ENV-ima-ingress-nginx ingress-nginx/ingress-nginx
+  helm upgrade --install mojo-production-ima-ingress-nginx ingress-nginx/ingress-nginx
 }
 
 deploy_cert_manager() {
   printf "\nInstalling/ upgrading cert-manager chart\n\n"
-  helm upgrade --install mojo-$ENV-cert-manager jetstack/cert-manager \
+  helm upgrade --install mojo-production-cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
   --version v1.8.0 \
@@ -95,15 +98,15 @@ deploy_cert_manager() {
 
 deploy_reloader() {
   printf "\nInstalling/ upgrading cert-manager chart\n\n"
-  helm upgrade --install mojo-$ENV-reloader stakater/reloader 
+  helm upgrade --install mojo-production-reloader stakater/reloader 
 }
 
 deploy_external_dns() {
   printf "\nInstalling/ upgrading external DNS chart\n\n"
-  hostedZonePrivate=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/$ENV/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
-  hostedZonePublic=`aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/$ENV/hosted-zone-public | jq -r .Parameter.Value`
+  hostedZonePrivate=`aws ssm get-parameter --name /terraform_staff_infrastructure_monitoring/production/outputs | jq -r .Parameter.Value | jq .internal_hosted_zone_domain.value.name | sed 's/"//g'`
+  hostedZonePublic=`aws ssm get-parameter --name /codebuild/pttp-ci-ima-pipeline/production/hosted-zone-public | jq -r .Parameter.Value`
 
-  helm upgrade --install mojo-$ENV-ima-external-dns bitnami/external-dns \
+  helm upgrade --install mojo-production-ima-external-dns bitnami/external-dns \
   --set provider=aws \
   --set source=ingress \
   --set domainFilters[0]=$hostedZonePrivate\
@@ -122,7 +125,7 @@ upgrade_ima_chart(){
   snmp_loadbalancer=$(echo $outputs | jq '.snmp_exporter_hostname_v2.value' | sed 's/"//g' )
 
   printf "\nInstalling/ upgrading IMA Helm chart\n\n"
-  helm upgrade --install mojo-$KUBERNETES_NAMESPACE-ima --namespace $KUBERNETES_NAMESPACE --create-namespace ./kubernetes/infrastructure-monitoring --set \
+  helm upgrade --install mojo-$kubernetes_namespace-ima --namespace $kubernetes_namespace --create-namespace ./kubernetes/infrastructure-monitoring --set \
 alertmanagerImage=prom/alertmanager:v0.24.0,\
 blackboxExporterLoadBalancer=$blackbox_loadbalancer,\
 certificateAlertsSlackChannel=$certificateAlertsSlackChannel,\
@@ -134,7 +137,7 @@ cloudwatchExporterProductionArn=$cloudwatch_exporter_production_arn,\
 cloudwatchExporterImage=ghcr.io/nerdswords/yet-another-cloudwatch-exporter:v0.35.0-alpha,\
 configmapReloadImage=jimmidyson/configmap-reload:v0.7.1,\
 dhcpPortalApi=$dhcpPortalApi,\
-environment=$ENV,\
+environment=production,\
 hostedZonePrivate=$hostedZonePrivate,\
 hostedZonePublic=$hostedZonePublic,\
 jsonExporterImage=quay.io/prometheuscommunity/json-exporter,\
@@ -153,7 +156,7 @@ thanosStorageS3KmsKeyId=$prometheus_thanos_storage_kms_key_id
 }
 
 get_prometheus_endpoint() {
-  prometheus_endpoint=$(kubectl get ingress --namespace $KUBERNETES_NAMESPACE -o json | jq '.items[0].spec.rules[0].host')
+  prometheus_endpoint=$(kubectl get ingress --namespace $kubernetes_namespace -o json | jq '.items[0].spec.rules[0].host')
   printf "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   printf "\nInternal prometheus endpoint: $prometheus_endpoint\n"
 }
@@ -180,7 +183,7 @@ main(){
   # Display all Pods
   printf "\nList of Pods:\n\n"
   kubectl get pods --namespace default
-  kubectl get pods --namespace $KUBERNETES_NAMESPACE
+  kubectl get pods --namespace $kubernetes_namespace
 }
 
 if [ $ENV == "production" ]; then
