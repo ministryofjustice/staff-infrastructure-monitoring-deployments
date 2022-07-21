@@ -24,8 +24,7 @@ phases:
   build:
     commands:
       - export AWS_DEFAULT_REGION=eu-west-2
-      - KUBERNETES_NAMESPACE=$ENV ./scripts/deploy_kubernetes.sh
-
+      - ./scripts/deploy_kubernetes.sh development
 
   post_build:
     commands:
